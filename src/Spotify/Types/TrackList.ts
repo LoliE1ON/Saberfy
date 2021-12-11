@@ -1,4 +1,7 @@
-export type TrackList = Track[];
+export type TrackList = {
+    list: Track[];
+    total: number;
+};
 
 export type Track = {
     name: string;
