@@ -1,2 +1,3 @@
-export { LikedSongsResponse } from "./LikedSongsResponse";
+export { LikedTracksResponse } from "./LikedTracksResponse";
 export { PaginationParameters } from "./PaginationParameters";
+export { TrackList, Track } from "./TrackList";

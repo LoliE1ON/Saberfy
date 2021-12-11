@@ -4,6 +4,7 @@ const config: AxiosRequestConfig = {
     baseURL: "https://api.spotify.com/v1/",
     headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
         Authorization: `Bearer ${process.env.SPOTIFY_OAUTH_TOKEN}`,
     },
 };
@@ -17,6 +18,7 @@ export async function authenticatedGet<T>(config: AxiosRequestConfig): Promise<A
             method: "get",
         });
     } catch (error: any) {
+        console.log(error);
         throw new Error(error);
     }
 }

@@ -1,7 +1,10 @@
-import { getLikedSongs } from "./Spotify";
+require("dotenv").config();
+import { getLikedTracks } from "./Spotify";
 
 async function application() {
-    const songs = await getLikedSongs();
+    const tracks = await getLikedTracks();
+
+    console.log(tracks);
 }
 
 application();

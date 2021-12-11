@@ -1,1 +1,1 @@
-export { getLikedSongs } from "./LikedSongs";
+export { getLikedTracks } from "./LikedTracks";
