@@ -1,32 +1,93 @@
 {
+  "private": true,
   "name": "spotify-beat-saber-tool",
-  "version": "1.0.0",
+  "productName": "Spotify >>> BeatSaver >>> Beat Saber Importer",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": ".dist/mainProcess/src/index.js",
   "scripts": {
-    "start": "npx tsc && node dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LoliE1ON/spotify-beat-saber-tool.git"
+    "dev": "npm run mp-build && cross-env NODE_ENV=development BROWSER=none npm-run-all --parallel react-start electron-start",
+    "start": "cross-env NODE_ENV=production npm-run-all rp-build mp-build electron-start",
+    "build": "cross-env NODE_ENV=production npm-run-all rp-build mp-build electron-build",
+    "electron-start": "electron .dist/mainProcess/src/index.js",
+    "electron-build": "electron-builder build",
+    "react-lint": "eslint ./src --ext .ts,.js,.tsx",
+    "react-start": "react-app-rewired start",
+    "mp-build": "cd mainProcess && tsc",
+    "rp-build": "react-app-rewired build"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/LoliE1ON/spotify-beat-saber-tool/issues"
+  "build": {
+    "appId": "com.example.electron-boilerplate",
+    "files": [
+      ".dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "build"
+    },
+    "publish": null,
+    "extends": null
   },
-  "homepage": "https://github.com/LoliE1ON/spotify-beat-saber-tool#readme",
+  "license": "MIT",
+  "dependencies": {
+    "@ant-design/icons": "^4.2.2",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "12",
+    "@types/node-static": "^0.7.5",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-redux": "^7.1.9",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/testing-library__dom": "^7.5.0",
+    "@types/unzipper": "^0.10.3",
+    "antd": "^4.8.0",
+    "axios": "^0.21.0",
+    "cross-env": "^7.0.2",
+    "customize-cra": "^1.0.0",
+    "dotenv": "^10.0.0",
+    "electron-devtools-installer": "^3.1.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "husky": "^4.3.0",
+    "node-static": "^0.7.11",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.1.2",
+    "promisify-child-process": "^4.1.1",
+    "react": "^16.13.1",
+    "react-app-rewired": "^2.1.6",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "storeon": "^3.1.1",
+    "unzipper": "^0.10.11"
+  },
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/dotenv": "^8.2.0",
     "@types/node": "^16.11.12",
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
+    "electron": "^11.0.3",
     "prettier": "^2.5.1",
-    "typescript": "^4.5.3"
+    "typescript": "^4.1.2"
   },
-  "dependencies": {
-    "axios": "^0.24.0",
-    "dotenv": "^10.0.0"
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

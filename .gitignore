@@ -1,4 +1,10 @@
-dist
-node_modules
-.idea
-.env
+/node_modules/
+/.idea/
+package-lock.json
+yarn.lock
+.update-revision
+.instbot
+.dist
+yarn-error.log
+limits.json
+build
