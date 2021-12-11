@@ -1,3 +1,5 @@
 export type StoreEvents = {};
 
-export type StoreState = {};
+export type StoreState = {
+  tracks: any;
+};
