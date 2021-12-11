@@ -1,4 +1,4 @@
-import { authenticatedGet } from "./Request";
+import { request } from "./Request";
 import { TrackListResponse, PaginationParameters, TrackList } from "./Types";
 
 const defaultPaginationParameters: PaginationParameters = {
@@ -7,7 +7,7 @@ const defaultPaginationParameters: PaginationParameters = {
 };
 
 export async function getLikedTracks(paginationParameters: PaginationParameters = defaultPaginationParameters): Promise<TrackList> {
-    const response = await authenticatedGet<TrackListResponse>({
+    const response = await request.get<TrackListResponse>({
         url: `me/tracks?market=ES&limit=${paginationParameters.limit}&offset=${paginationParameters.offset}`,
     });
 

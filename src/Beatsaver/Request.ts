@@ -2,11 +2,10 @@ import { AxiosRequestConfig } from "axios";
 import { createRequest } from "../Request";
 
 const config: AxiosRequestConfig = {
-    baseURL: "https://api.spotify.com/v1/",
+    baseURL: "https://beatsaver.com/api/",
     headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer ${process.env.SPOTIFY_OAUTH_TOKEN}`,
     },
 };
 
