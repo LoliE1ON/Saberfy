@@ -18,7 +18,6 @@ export async function authenticatedGet<T>(config: AxiosRequestConfig): Promise<A
             method: "get",
         });
     } catch (error: any) {
-        console.log(error);
         throw new Error(error);
     }
 }
