@@ -13,11 +13,12 @@ export async function getLikedTracks(paginationParameters: PaginationParameters 
 
     const tracks = response.data.items.map(item => {
         const name = item.track.name;
+        const previewUrl = item.track.album.images[0].url;
         const artists = item.track.artists.map(artist => {
             return { name: artist.name };
         });
 
-        return { name, artists };
+        return { name, artists, previewUrl };
     });
 
     return {

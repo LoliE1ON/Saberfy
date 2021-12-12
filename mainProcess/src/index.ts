@@ -1,12 +1,9 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 import * as fs from "fs";
-import {
-  IpcHandler,
-  OpenWindowProps,
-  WindowSizeBase
-} from "../../types";
+import { IpcHandler, OpenWindowProps, WindowSizeBase } from "../../types";
 import { serveStatic } from "./utils/serveStatic";
+require("dotenv").config();
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
