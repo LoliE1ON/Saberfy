@@ -1,6 +1,8 @@
 export type StoreEvents = {
+    "spotify/asyncTask/getLikedTracks": void;
     "spotify/setTracks": {
         list: {
+            id: string;
             name: string;
             previewUrl: string;
             artists: {
@@ -9,32 +11,43 @@ export type StoreEvents = {
         }[];
         total: number;
     };
-    "spotify/asyncTask/getLikedTracks": void;
+    "track/setMaps": {
+        trackId: string;
+        maps: {
+            docs: any[];
+        };
+    };
 };
 
 export type StoreState = {
-    tracks: Tracks;
+    tracks: Track[];
     total: number;
 };
 
-export type Tracks = {
+export type Track = {
     track: {
+        id: string;
         name: string;
         previewUrl: string;
         artists: {
             name: string;
         }[];
     };
-    maps: {
-        name: string;
-        description: string;
-        createdAt: string;
-        stats: {
-            downloads: number;
-            downvotes: number;
-            plays: number;
-            score: number;
-            upvotes: number;
-        };
+    maps: TrackMap[];
+};
+
+export type TrackMap = {
+    name: string;
+    description: string;
+    createdAt: string;
+    stats: {
+        downloads: number;
+        downvotes: number;
+        plays: number;
+        score: number;
+        upvotes: number;
+    };
+    versions: {
+        coverURL: string;
     }[];
-}[];
+};

@@ -1,11 +1,12 @@
 import { IpcHandler } from "../../../types";
 import { getLikedTracks } from "../Spotify";
+import { PaginationParameters } from "../Spotify/Types";
 
-const spotifyGetLikedTracks: IpcHandler<void> = {
-  name: "spotify/getLikedTracks",
-  async handler() {
-    return await getLikedTracks();
-  },
+const spotifyGetLikedTracks: IpcHandler<PaginationParameters> = {
+    name: "spotify/getLikedTracks",
+    async handler(event, props) {
+        return await getLikedTracks(props);
+    },
 };
 
 module.exports = [spotifyGetLikedTracks];

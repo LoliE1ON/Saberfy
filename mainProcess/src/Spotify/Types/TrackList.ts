@@ -4,6 +4,7 @@ export type TrackList = {
 };
 
 export type Track = {
+    id: string;
     name: string;
     previewUrl: string;
     preview_url?: string;
