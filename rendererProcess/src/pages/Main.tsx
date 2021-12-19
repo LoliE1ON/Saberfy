@@ -4,6 +4,7 @@ import { TracksComponent } from "../Tracks/TracksComponents";
 import { useStoreon } from "storeon/react";
 import { StoreEvents, StoreState } from "../../../types";
 import { Badge } from "antd";
+import { SettingsComponent } from "../Settings/SettingsComponent";
 
 const { TabPane } = Tabs;
 const { Content } = Layout;
@@ -18,7 +19,7 @@ export default function Main() {
                     <TracksComponent />
                 </TabPane>
                 <TabPane tab="Settings" key="2">
-                    2
+                    <SettingsComponent />
                 </TabPane>
                 <TabPane tab={<Badge style={{ backgroundColor: "#108ee9" }} count={total + " tracks"} />} disabled>
                     {" "}

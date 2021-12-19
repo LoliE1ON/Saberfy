@@ -1,11 +1,17 @@
 import { createStoreon, StoreonModule } from "storeon";
 import { StoreEvents, StoreState } from "../../../types";
 
+const { ipcRenderer } = window.require("electron");
+
 const globalStore: StoreonModule<StoreState, StoreEvents> = store => {
     store.on("@init", () => {
+        store.dispatch("beatSaber/getPath");
         return {
             tracks: [],
             total: 0,
+            beatSaber: {
+                path: "",
+            },
         };
     });
 
@@ -20,6 +26,22 @@ const globalStore: StoreonModule<StoreState, StoreEvents> = store => {
                 })),
             ],
             total: tracks.total,
+        };
+    });
+
+    store.on("beatSaber/getPath", state => {
+        ipcRenderer.invoke("beatSaber/getGamePath").then(path => {
+            store.dispatch("beatSaber/setPath", path);
+        });
+    });
+
+    store.on("beatSaber/setPath", (state, path) => {
+        return {
+            ...state,
+            beatSaber: {
+                ...state.beatSaber,
+                path,
+            },
         };
     });
 

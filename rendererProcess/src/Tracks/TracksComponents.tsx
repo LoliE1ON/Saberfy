@@ -58,7 +58,7 @@ export function TracksComponent() {
                 <MapsComponent trackId={selectedTrackId} />
             </Modal>
 
-            <div ref={ref}>a</div>
+            <div ref={ref}></div>
         </div>
     );
 }

@@ -17,11 +17,18 @@ export type StoreEvents = {
             docs: any[];
         };
     };
+    "beatSaber/getPath": void;
+    "beatSaber/setPath": string;
 };
 
 export type StoreState = {
     tracks: Track[];
     total: number;
+    beatSaber: BeatSaber;
+};
+
+export type BeatSaber = {
+    path: string;
 };
 
 export type Track = {
