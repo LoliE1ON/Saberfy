@@ -7,13 +7,12 @@ import { BeatSaberAppId, BeatSaberSteamPath, SteamLibraryFoldersPath, SteamRegis
 export async function getGamePath(): Promise<string> {
     try {
         const steamPath = await getSteamPath();
-
         const libraryFolders = `${steamPath}${SteamLibraryFoldersPath}`;
 
-        const file = await fs.promises.readFile(libraryFolders, "utf8");
-
         // TODO: regExp
+        const file = await fs.promises.readFile(libraryFolders, "utf8");
         const { libraryfolders }: LibraryFolders = vdf.parse(file);
+
         for (const folder in libraryfolders) {
             for (const app in libraryfolders[folder].apps) {
                 if (Number(app) === BeatSaberAppId) {
@@ -35,15 +34,14 @@ type LibraryFolders = {
     libraryfolders: LibraryFolder;
 };
 
-type LibraryFolder = {
-    [key: string]: Folder;
-};
+type LibraryFolder = Item<Folder>;
+type App = Item<string>;
 
 type Folder = {
     path: string;
     apps: App[];
 };
 
-type App = {
-    [key: string]: string;
+type Item<T> = {
+    [key: string]: T;
 };
