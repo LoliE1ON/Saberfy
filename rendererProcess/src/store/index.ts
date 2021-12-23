@@ -44,6 +44,16 @@ const globalStore: StoreonModule<StoreState, StoreEvents> = store => {
         };
     });
 
+    store.on("beatSaber/addLocalMap", (state, folderName) => {
+        return {
+            ...state,
+            beatSaber: {
+                ...state.beatSaber,
+                localMaps: [...state.beatSaber.localMaps, folderName],
+            },
+        };
+    });
+
     store.on("beatSaber/deleteMap", (state, deleteMap) => {
         return {
             ...state,

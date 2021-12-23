@@ -2,12 +2,16 @@ import Registry from "rage-edit";
 import * as fs from "fs";
 import * as path from "path";
 import * as vdf from "vdf";
-import { BeatSaberAppId, BeatSaberSteamPath, SteamLibraryFoldersPath, SteamRegistryPath } from "./Constants";
+import { BeatSaber } from "./BeatSaber";
 
 export async function getGamePath(): Promise<string> {
+    if (BeatSaber.gamePath) {
+        return BeatSaber.gamePath;
+    }
+
     try {
         const steamPath = await getSteamPath();
-        const libraryFolders = `${steamPath}${SteamLibraryFoldersPath}`;
+        const libraryFolders = `${steamPath}${BeatSaber.steamLibraryFoldersPath}`;
 
         // TODO: regExp
         const file = await fs.promises.readFile(libraryFolders, "utf8");
@@ -15,18 +19,20 @@ export async function getGamePath(): Promise<string> {
 
         for (const folder in libraryfolders) {
             for (const app in libraryfolders[folder].apps) {
-                if (Number(app) === BeatSaberAppId) {
-                    return path.normalize(`${libraryfolders[folder].path}${BeatSaberSteamPath}`);
+                if (Number(app) === BeatSaber.appId) {
+                    BeatSaber.gamePath = path.normalize(`${libraryfolders[folder].path}${BeatSaber.steamPath}`);
                 }
             }
         }
+
+        return BeatSaber.gamePath;
     } catch (error: any) {
         throw new Error(error);
     }
 }
 
 async function getSteamPath(): Promise<string> {
-    const { $values } = await Registry.get(SteamRegistryPath);
+    const { $values } = await Registry.get(BeatSaber.steamRegistryPath);
     return $values.installpath;
 }
 

@@ -21,6 +21,7 @@ export type StoreEvents = {
     "beatSaber/setPath": string;
     "beatSaber/setLocalMaps": string[];
     "beatSaber/deleteMap": string;
+    "beatSaber/addLocalMap": string;
 };
 
 export type StoreState = {
@@ -47,6 +48,7 @@ export type Track = {
 };
 
 export type TrackMap = {
+    id: string;
     name: string;
     description: string;
     createdAt: string;
@@ -64,5 +66,6 @@ export type TrackMap = {
     };
     versions: {
         coverURL: string;
+        downloadURL: string;
     }[];
 };

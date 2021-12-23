@@ -1,20 +1,25 @@
 import * as fs from "fs";
 import { getGamePath } from "./GamePath";
-import { BeatSaberMapsPath } from "./Constants";
+import { BeatSaber } from "./BeatSaber";
 
 export async function getLocalMaps(): Promise<string[]> {
-    const beatSaberPath = await getGamePath();
-    const mapsPath = `${beatSaberPath}${BeatSaberMapsPath}`;
-    if (mapsPath) {
-        return fs.readdirSync(mapsPath);
+    if (BeatSaber.localMaps.length) {
+        return BeatSaber.localMaps;
     }
 
-    return [];
+    const beatSaberPath = await getGamePath();
+    const mapsPath = `${BeatSaber.gamePath}${BeatSaber.mapsPath}`;
+
+    if (beatSaberPath) {
+        BeatSaber.localMaps = fs.readdirSync(mapsPath);
+    }
+
+    return BeatSaber.localMaps;
 }
 
 export async function deleteMap(folderName: string): Promise<boolean> {
     const beatSaberPath = await getGamePath();
-    const folderPath = `${beatSaberPath}${BeatSaberMapsPath}\\${folderName}`;
+    const folderPath = `${beatSaberPath}${BeatSaber.mapsPath}\\${folderName}`;
 
     try {
         fs.rmdirSync(folderPath, { recursive: true });
