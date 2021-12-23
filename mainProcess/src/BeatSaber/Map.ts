@@ -11,3 +11,15 @@ export async function getLocalMaps(): Promise<string[]> {
 
     return [];
 }
+
+export async function deleteMap(folderName: string): Promise<boolean> {
+    const beatSaberPath = await getGamePath();
+    const folderPath = `${beatSaberPath}${BeatSaberMapsPath}\\${folderName}`;
+
+    try {
+        fs.rmdirSync(folderPath, { recursive: true });
+        return true;
+    } catch {
+        return false;
+    }
+}

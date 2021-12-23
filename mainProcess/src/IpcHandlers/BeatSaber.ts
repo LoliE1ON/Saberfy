@@ -1,6 +1,6 @@
 import { IpcHandler } from "../../../types";
 import { getGamePath } from "../BeatSaber/GamePath";
-import { getLocalMaps } from "../BeatSaber/LocalMap";
+import { deleteMap, getLocalMaps } from "../BeatSaber/Map";
 
 const beatSaberGetGamePath: IpcHandler<void> = {
     name: "beatSaber/getGamePath",
@@ -16,4 +16,11 @@ const beatSaberGetLocalMaps: IpcHandler<void> = {
     },
 };
 
-module.exports = [beatSaberGetGamePath, beatSaberGetLocalMaps];
+const beatSaberDeleteMap: IpcHandler<string> = {
+    name: "beatSaber/deleteMap",
+    async handler(event, props) {
+        return await deleteMap(props);
+    },
+};
+
+module.exports = [beatSaberGetGamePath, beatSaberGetLocalMaps, beatSaberDeleteMap];

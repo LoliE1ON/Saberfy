@@ -8,6 +8,8 @@ type TrackComponentProps = {
     map: TrackMap;
 };
 
+const { ipcRenderer } = window.require("electron");
+
 const IconText = ({ icon, text }: { icon: any; text: string }) => (
     <Space>
         {React.createElement(icon)}
@@ -15,27 +17,39 @@ const IconText = ({ icon, text }: { icon: any; text: string }) => (
     </Space>
 );
 
-const AddButton = ({ localMaps, map }: { localMaps: string[]; map: TrackMap }) => {
-    const mapName = `${map.metadata.songName} - ${map.metadata.levelAuthorName}`;
-    const regExp = new RegExp(`\\((${mapName})\\)`);
-
-    if (localMaps.find(map => regExp.exec(map))) {
-        return (
-            <Button type="primary" danger>
-                <CloseOutlined /> Remove from BeatSaber
-            </Button>
-        );
-    } else {
-        return (
-            <Button>
-                <PlusOutlined /> Add to BeatSaber
-            </Button>
-        );
-    }
-};
-
 export function MapComponent(props: TrackComponentProps) {
-    const { beatSaber } = useStoreon<StoreState, StoreEvents>("beatSaber");
+    const { beatSaber, dispatch } = useStoreon<StoreState, StoreEvents>("beatSaber");
+
+    const deleteMap = (folderName: string) => {
+        ipcRenderer.invoke("beatSaber/deleteMap", folderName).then((result: boolean) => {
+            if (result) {
+                dispatch("beatSaber/deleteMap", folderName);
+            }
+
+            //TODO: alert error
+        });
+    };
+
+    const AddButton = ({ localMaps, map }: { localMaps: string[]; map: TrackMap }) => {
+        const mapName = `${map.metadata.songName} - ${map.metadata.levelAuthorName}`;
+        const regExp = new RegExp(`\\((${mapName})\\)`);
+
+        const localMap = localMaps.find(map => regExp.exec(map));
+
+        if (localMap) {
+            return (
+                <Button type="primary" onClick={() => deleteMap(localMap)} danger>
+                    <CloseOutlined /> Remove from BeatSaber
+                </Button>
+            );
+        } else {
+            return (
+                <Button>
+                    <PlusOutlined /> Add to BeatSaber
+                </Button>
+            );
+        }
+    };
 
     return (
         <List.Item

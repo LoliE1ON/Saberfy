@@ -20,6 +20,7 @@ export type StoreEvents = {
     "beatSaber/getPath": void;
     "beatSaber/setPath": string;
     "beatSaber/setLocalMaps": string[];
+    "beatSaber/deleteMap": string;
 };
 
 export type StoreState = {

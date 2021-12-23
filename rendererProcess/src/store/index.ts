@@ -44,6 +44,16 @@ const globalStore: StoreonModule<StoreState, StoreEvents> = store => {
         };
     });
 
+    store.on("beatSaber/deleteMap", (state, deleteMap) => {
+        return {
+            ...state,
+            beatSaber: {
+                ...state.beatSaber,
+                localMaps: state.beatSaber.localMaps.filter(map => map !== deleteMap),
+            },
+        };
+    });
+
     store.on("beatSaber/getPath", state => {
         ipcRenderer.invoke("beatSaber/getGamePath").then(path => {
             store.dispatch("beatSaber/setPath", path);
