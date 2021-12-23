@@ -19,14 +19,7 @@ const AddButton = ({ localMaps, map }: { localMaps: string[]; map: TrackMap }) =
     const mapName = `${map.metadata.songName} - ${map.metadata.levelAuthorName}`;
     const regExp = new RegExp(`\\((${mapName})\\)`);
 
-    if (
-        localMaps.find(map => {
-            if (regExp.exec(map)) {
-                console.log(regExp.exec(map));
-            }
-            return regExp.exec(map);
-        })
-    ) {
+    if (localMaps.find(map => regExp.exec(map))) {
         return (
             <Button type="primary" danger>
                 <CloseOutlined /> Remove from BeatSaber
