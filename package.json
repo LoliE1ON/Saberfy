@@ -1,7 +1,7 @@
 {
   "private": true,
-  "name": "spotify-beat-saber-tool",
-  "productName": "Spotify >>> BeatSaver >>> Beat Saber Importer",
+  "name": "SpotiSaber",
+  "productName": "SpotiSaber",
   "version": "0.0.1",
   "description": "",
   "main": ".dist/mainProcess/src/index.js",
@@ -18,7 +18,7 @@
   },
   "keywords": [],
   "build": {
-    "appId": "com.example.electron-boilerplate",
+    "appId": "com.e1on.SpotiSaber",
     "files": [
       ".dist/**/*",
       "node_modules/**/*",
