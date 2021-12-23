@@ -5,12 +5,17 @@ const { ipcRenderer } = window.require("electron");
 
 const globalStore: StoreonModule<StoreState, StoreEvents> = store => {
     store.on("@init", () => {
+        ipcRenderer.invoke("beatSaber/getLocalMaps").then((localMaps: string[]) => {
+            store.dispatch("beatSaber/setLocalMaps", localMaps);
+        });
+
         store.dispatch("beatSaber/getPath");
         return {
             tracks: [],
             total: 0,
             beatSaber: {
                 path: "",
+                localMaps: [],
             },
         };
     });
@@ -26,6 +31,16 @@ const globalStore: StoreonModule<StoreState, StoreEvents> = store => {
                 })),
             ],
             total: tracks.total,
+        };
+    });
+
+    store.on("beatSaber/setLocalMaps", (state, localMaps) => {
+        return {
+            ...state,
+            beatSaber: {
+                ...state.beatSaber,
+                localMaps,
+            },
         };
     });
 
@@ -48,7 +63,6 @@ const globalStore: StoreonModule<StoreState, StoreEvents> = store => {
     store.on("track/setMaps", (state, maps) => {
         const tracks = state.tracks.map(item => {
             if (item.track.id === maps.trackId) {
-                console.log(maps.maps.docs);
                 return { ...item, maps: maps.maps.docs };
             }
             return item;

@@ -19,6 +19,7 @@ export type StoreEvents = {
     };
     "beatSaber/getPath": void;
     "beatSaber/setPath": string;
+    "beatSaber/setLocalMaps": string[];
 };
 
 export type StoreState = {
@@ -29,6 +30,7 @@ export type StoreState = {
 
 export type BeatSaber = {
     path: string;
+    localMaps: string[];
 };
 
 export type Track = {
@@ -47,6 +49,11 @@ export type TrackMap = {
     name: string;
     description: string;
     createdAt: string;
+    metadata: {
+        songName: string;
+        levelAuthorName: string;
+        songAuthorName: string;
+    };
     stats: {
         downloads: number;
         downvotes: number;
