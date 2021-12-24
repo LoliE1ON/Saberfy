@@ -1,7 +1,7 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, dialog } from "electron";
 import * as path from "path";
 import * as fs from "fs";
-import { IpcHandler, OpenWindowProps, WindowSizeBase } from "../../types";
+import { IpcHandler, WindowSizeBase } from "../../types";
 import { serveStatic } from "./utils/serveStatic";
 require("dotenv").config();
 
@@ -9,52 +9,67 @@ const isDevelopment = process.env.NODE_ENV === "development";
 
 const ipcHandlersPath = path.join(__dirname, "./IpcHandlers/");
 const ipcHandlersMap: IpcHandler<never>[] = fs
-  .readdirSync(ipcHandlersPath)
-  .map(file => require(path.join(ipcHandlersPath, file)))
-  .flat();
+    .readdirSync(ipcHandlersPath)
+    .map(file => require(path.join(ipcHandlersPath, file)))
+    .flat();
 
 ipcHandlersMap.forEach(handler => ipcMain.handle(handler.name, handler.handler));
 
-const openWindow = async ({
-  width,
-  height,
-  route,
-}: OpenWindowProps): Promise<BrowserWindow> => {
-  const baseUrl = "http://localhost:3000/index.html";
+let mainWindow;
 
-  const window = new BrowserWindow({
-    width,
-    height,
-    webPreferences: {
-      nodeIntegration: true,
-    },
-  });
+if (process.defaultApp) {
+    if (process.argv.length >= 2) {
+        app.setAsDefaultProtocolClient("spoti-saber", process.execPath, [path.resolve(process.argv[1])]);
+    }
+} else {
+    app.setAsDefaultProtocolClient("spoti-saber");
+}
 
-  window.setMenu(null);
-  isDevelopment && window.webContents.openDevTools({ mode: "detach" });
-  window.loadURL(`${baseUrl}#/${route}`).catch(console.error);
+const gotTheLock = app.requestSingleInstanceLock();
 
-  return window;
-};
+if (!gotTheLock) {
+    app.quit();
+} else {
+    app.on("second-instance", (event, commandLine, workingDirectory) => {
+        // Someone tried to run a second instance, we should focus our window.
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) mainWindow.restore();
+            mainWindow.focus();
+        }
+    });
+
+    // Create mainWindow, load the rest of the app, etc...
+    app.whenReady().then(() => {
+        createWindow();
+    });
+
+    app.on("open-url", (event, url) => {
+        dialog.showErrorBox("Welcome Back", `You arrived from: ${url}`);
+    });
+}
 
 const createWindow = async (): Promise<void> => {
-  if (!isDevelopment) {
-    await serveStatic();
-  }
+    if (!isDevelopment) {
+        await serveStatic();
+    }
+    const { width, height } = WindowSizeBase;
+    const baseUrl = "http://localhost:3000/index.html";
 
-  await openWindow({ ...WindowSizeBase, route: "" });
+    mainWindow = new BrowserWindow({
+        width,
+        height,
+        webPreferences: {
+            nodeIntegration: true,
+        },
+    });
+
+    mainWindow.setMenu(null);
+    isDevelopment && mainWindow.webContents.openDevTools({ mode: "detach" });
+    mainWindow.loadURL(baseUrl).catch(console.error);
 };
 
-app.on("ready", createWindow);
-
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
-});
-
-app.on("activate", () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow().catch(console.error);
-  }
+    if (process.platform !== "darwin") {
+        app.quit();
+    }
 });

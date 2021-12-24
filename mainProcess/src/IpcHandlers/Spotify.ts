@@ -1,6 +1,8 @@
 import { IpcHandler } from "../../../types";
 import { getLikedTracks } from "../Spotify";
 import { PaginationParameters } from "../Spotify/Types";
+import { shell } from "electron";
+import { Spotify } from "../Spotify/Spotify";
 
 const spotifyGetLikedTracks: IpcHandler<PaginationParameters> = {
     name: "spotify/getLikedTracks",
@@ -9,4 +11,11 @@ const spotifyGetLikedTracks: IpcHandler<PaginationParameters> = {
     },
 };
 
-module.exports = [spotifyGetLikedTracks];
+const spotifyOpenAuthLink: IpcHandler<void> = {
+    name: "spotify/openAuthLink",
+    async handler(event, props) {
+        shell.openExternal(Spotify.getAuthUrl()).catch(console.error);
+    },
+};
+
+module.exports = [spotifyGetLikedTracks, spotifyOpenAuthLink];
