@@ -6,7 +6,6 @@ const config: AxiosRequestConfig = {
     headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer ${process.env.SPOTIFY_OAUTH_TOKEN}`,
     },
 };
 

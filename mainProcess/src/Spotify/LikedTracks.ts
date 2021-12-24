@@ -1,5 +1,6 @@
 import { request } from "./Request";
 import { TrackListResponse, PaginationParameters, TrackList } from "./Types";
+import { Spotify } from "./Spotify";
 
 const defaultPaginationParameters: PaginationParameters = {
     limit: 50,
@@ -9,6 +10,9 @@ const defaultPaginationParameters: PaginationParameters = {
 export async function getLikedTracks(paginationParameters: PaginationParameters = defaultPaginationParameters): Promise<TrackList> {
     const response = await request.get<TrackListResponse>({
         url: `me/tracks?market=ES&limit=${paginationParameters.limit}&offset=${paginationParameters.offset}`,
+        headers: {
+            Authorization: `Bearer ${Spotify.accessToken}`,
+        },
     });
 
     const tracks = response.data.items.map(item => {

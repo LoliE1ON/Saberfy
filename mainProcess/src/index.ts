@@ -1,15 +1,13 @@
-import { app, BrowserWindow, ipcMain, dialog } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 import * as fs from "fs";
 import { IpcHandler, WindowSizeBase } from "../../types";
 import { serveStatic } from "./utils/serveStatic";
+import { Spotify } from "./Spotify/Spotify";
 require("dotenv").config();
 
 const isDevelopment = process.env.NODE_ENV === "development";
-
-try {
-    isDevelopment && require("electron-reloader")(module);
-} catch {}
+isDevelopment && require("electron-reload");
 
 const ipcHandlersPath = path.join(__dirname, "./IpcHandlers/");
 const ipcHandlersMap: IpcHandler<never>[] = fs
@@ -18,15 +16,14 @@ const ipcHandlersMap: IpcHandler<never>[] = fs
     .flat();
 
 ipcHandlersMap.forEach(handler => ipcMain.handle(handler.name, handler.handler));
-
 let mainWindow;
 
 if (process.defaultApp) {
     if (process.argv.length >= 2) {
-        app.setAsDefaultProtocolClient("spoti-saber", process.execPath, [path.resolve(process.argv[1])]);
+        app.setAsDefaultProtocolClient("saberfy", process.execPath, [path.resolve(process.argv[1])]);
     }
 } else {
-    app.setAsDefaultProtocolClient("spoti-saber");
+    app.setAsDefaultProtocolClient("saberfy");
 }
 
 app.commandLine.appendSwitch("disable-http-cache");
@@ -37,13 +34,15 @@ if (!gotTheLock) {
     app.quit();
 } else {
     app.on("second-instance", (event, commandLine, workingDirectory) => {
+        // Handle Spotify auth
+        const auth = Spotify.handleAuth(commandLine);
+        mainWindow.webContents.send("spotify-auth", auth);
+
         // Someone tried to run a second instance, we should focus our window.
         if (mainWindow) {
             if (mainWindow.isMinimized()) mainWindow.restore();
             mainWindow.focus();
         }
-
-        mainWindow.webContents.send("open-by-link", { args: commandLine });
     });
 
     // Create mainWindow, load the rest of the app, etc...

@@ -17,6 +17,7 @@ const globalStore: StoreonModule<StoreState, StoreEvents> = store => {
                 path: "",
                 localMaps: [],
             },
+            isAuthorize: false,
         };
     });
 
@@ -31,6 +32,13 @@ const globalStore: StoreonModule<StoreState, StoreEvents> = store => {
                 })),
             ],
             total: tracks.total,
+        };
+    });
+
+    store.on("setAuthorize", (state, isAuthorize) => {
+        return {
+            ...state,
+            isAuthorize,
         };
     });
 

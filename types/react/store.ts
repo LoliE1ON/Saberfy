@@ -22,12 +22,14 @@ export type StoreEvents = {
     "beatSaber/setLocalMaps": string[];
     "beatSaber/deleteMap": string;
     "beatSaber/addLocalMap": string;
+    setAuthorize: boolean;
 };
 
 export type StoreState = {
     tracks: Track[];
     total: number;
     beatSaber: BeatSaber;
+    isAuthorize: boolean;
 };
 
 export type BeatSaber = {
