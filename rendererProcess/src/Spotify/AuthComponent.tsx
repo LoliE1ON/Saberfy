@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col, Button } from "antd";
 
 const { ipcRenderer } = window.require("electron");
