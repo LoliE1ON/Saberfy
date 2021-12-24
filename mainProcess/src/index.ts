@@ -7,6 +7,10 @@ require("dotenv").config();
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
+try {
+    isDevelopment && require("electron-reloader")(module);
+} catch {}
+
 const ipcHandlersPath = path.join(__dirname, "./IpcHandlers/");
 const ipcHandlersMap: IpcHandler<never>[] = fs
     .readdirSync(ipcHandlersPath)
@@ -25,6 +29,8 @@ if (process.defaultApp) {
     app.setAsDefaultProtocolClient("spoti-saber");
 }
 
+app.commandLine.appendSwitch("disable-http-cache");
+
 const gotTheLock = app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
@@ -36,15 +42,13 @@ if (!gotTheLock) {
             if (mainWindow.isMinimized()) mainWindow.restore();
             mainWindow.focus();
         }
+
+        mainWindow.webContents.send("open-by-link", { args: commandLine });
     });
 
     // Create mainWindow, load the rest of the app, etc...
     app.whenReady().then(() => {
         createWindow();
-    });
-
-    app.on("open-url", (event, url) => {
-        dialog.showErrorBox("Welcome Back", `You arrived from: ${url}`);
     });
 }
 
