@@ -2,7 +2,7 @@
     "private": true,
     "name": "saberfy",
     "productName": "Saberfy",
-    "version": "1.0",
+    "version": "1.0.0",
     "description": "",
     "main": ".dist/mainProcess/src/index.js",
     "scripts": {
