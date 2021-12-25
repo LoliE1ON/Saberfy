@@ -8,13 +8,9 @@ export class Request {
     }
 
     public async get<T>(config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-        try {
-            return await this.instance.request({
-                ...config,
-                method: "get",
-            });
-        } catch (error: any) {
-            throw new Error(error);
-        }
+        return await this.instance.request({
+            ...config,
+            method: "get",
+        });
     }
 }
