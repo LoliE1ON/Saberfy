@@ -1,11 +1,20 @@
-import { ipcMain } from "electron";
-import { IpcChannel, IpcEventListener } from "types/ipc";
+import { ipcMain, ipcRenderer, IpcMainEvent } from "electron";
+import { IpcChannel, IpcEvent, IpcResponse } from "types/ipc";
 
-import IpcMain = Electron.IpcMain;
-import IpcMainEvent = Electron.IpcMainEvent;
+export const ipc: Ipc = {
+	handle(channel, callback) {
+		console.log("reg", channel);
+		ipcMain.handle(channel, callback);
+	},
+	invoke(channel, args) {
+		return ipcRenderer.invoke(channel, args);
+	},
+};
 
-type IpcListenCallback = (event: IpcMainEvent, args: IpcEventListener[IpcChannel]) => void;
-
-export function ipcListenChannel(channel: IpcChannel, callback: IpcListenCallback): IpcMain {
-	return ipcMain.on(channel, callback);
-}
+type Ipc = {
+	handle<T extends IpcChannel>(
+		channel: T,
+		callback: (event: IpcMainEvent, args: IpcEvent[T]) => IpcResponse[T]
+	): void;
+	invoke<T extends IpcChannel>(channel: T, args: IpcEvent[T]): Promise<IpcResponse[T]>;
+};

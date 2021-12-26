@@ -1,1 +1,1 @@
-export { IpcChannel, IpcEventListener } from "types/ipc/ipc";
+export { IpcChannel, IpcEvent, IpcResponse } from "types/ipc/ipc";

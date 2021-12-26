@@ -1,1 +1,1 @@
-export { ipcListenChannel } from "electron/utils/ipc";
+export { ipc } from "electron/utils/ipc";
