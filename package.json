@@ -5,9 +5,10 @@
 	"description": "Tool for match and import your Spotify tracks for BeatSaber",
 	"main": ".webpack/main",
 	"scripts": {
-		"start": "cross-env NODE_ENV=development electron-forge start",
-		"package": "cross-env NODE_ENV=production electron-forge package",
-		"make": "cross-env NODE_ENV=production electron-forge make",
+		"start": "electron-forge start",
+		"start-without-devtools": "electron-forge start",
+		"package": "electron-forge package",
+		"make": "NODE_ENV=production electron-forge make",
 		"lint": "eslint --ext .ts,.tsx ."
 	},
 	"keywords": [
@@ -100,7 +101,6 @@
 		"@emotion/styled": "^11.6.0",
 		"@mui/icons-material": "^5.2.5",
 		"@mui/material": "^5.2.5",
-		"cross-env": "^7.0.3",
 		"electron-squirrel-startup": "^1.0.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",

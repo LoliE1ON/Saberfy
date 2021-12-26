@@ -3,10 +3,10 @@ import * as ReactDOM from "react-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Test from "components/Test";
-import { Auth } from "types/ipc/auth";
+import { HashRouter as BrowserRouter, Routes, Route } from "react-router-dom";
 
-const test: Auth = { client_id: "123" };
+import TrackList from "pages/TrackList";
+import Navigation from "components/Navigation";
 
 function App() {
 	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -24,8 +24,12 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
-			<Test />
-			{test.client_id}
+			<BrowserRouter>
+				<Navigation />
+				<Routes>
+					<Route path="/" element={<TrackList />} />
+				</Routes>
+			</BrowserRouter>
 		</ThemeProvider>
 	);
 }
