@@ -9,7 +9,7 @@ import { ipcRenderer } from "electron";
 import TrackList from "pages/TrackList";
 import Navigation from "components/Navigation";
 
-ipcRenderer.send("123");
+ipcRenderer.send("test", { name: "тест" });
 
 function App() {
 	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");

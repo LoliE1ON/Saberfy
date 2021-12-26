@@ -1,5 +1,7 @@
-import { ipcMain, dialog } from "electron";
+import { dialog } from "electron";
+import { ipcListenChannel } from "electron/utils";
+import { IpcChannel } from "types/ipc";
 
-ipcMain.on("123", () => {
-	dialog.showErrorBox("Welcome Back", `Test IPC Events`);
+ipcListenChannel(IpcChannel.test, (event, args) => {
+	dialog.showErrorBox("Welcome Back", args.name);
 });
