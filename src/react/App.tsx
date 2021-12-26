@@ -3,8 +3,8 @@ import * as ReactDOM from "react-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Test from "./Test";
-import { Auth } from "types";
+import Test from "components/Test";
+import { Auth } from "types/ipc/auth";
 
 const test: Auth = { client_id: "123" };
 
