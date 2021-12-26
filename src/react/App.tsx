@@ -30,8 +30,4 @@ function App() {
 	);
 }
 
-function render() {
-	ReactDOM.render(<App />, document.body);
-}
-
-render();
+ReactDOM.render(<App />, document.body);

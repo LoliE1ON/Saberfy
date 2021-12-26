@@ -1,98 +1,108 @@
 {
-  "name": "test",
-  "productName": "test",
-  "version": "1.0.0",
-  "description": "My Electron application description",
-  "main": ".webpack/main",
-  "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
-  },
-  "keywords": [],
-  "author": {
-    "name": "d0kur0",
-    "email": "dev.dokuro@gmail.com"
-  },
-  "license": "MIT",
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "test"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ],
-      "plugins": [
-        [
-          "@electron-forge/plugin-webpack",
-          {
-            "mainConfig": "./webpack.main.config.js",
-            "renderer": {
-              "config": "./webpack.renderer.config.js",
-              "entryPoints": [
-                {
-                  "html": "./src/index.html",
-                  "js": "./src/renderer.ts",
-                  "name": "main_window"
-                }
-              ]
-            }
-          }
-        ]
-      ]
-    }
-  },
-  "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.61",
-    "@electron-forge/maker-deb": "^6.0.0-beta.61",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
-    "@electron-forge/maker-zip": "^6.0.0-beta.61",
-    "@electron-forge/plugin-webpack": "6.0.0-beta.61",
-    "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.0.1",
-    "@vercel/webpack-asset-relocator-loader": "1.7.0",
-    "css-loader": "^6.0.0",
-    "electron": "16.0.5",
-    "eslint": "^7.6.0",
-    "eslint-import-resolver-typescript": "^2.5.0",
-    "eslint-plugin-import": "^2.25.3",
-    "fork-ts-checker-webpack-plugin": "^6.0.1",
-    "node-loader": "^2.0.0",
-    "prettier": "^2.5.1",
-    "style-loader": "^3.0.0",
-    "ts-loader": "^9.2.2",
-    "typescript": "^4.0.2"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.2.5",
-    "@mui/material": "^5.2.5",
-    "electron-squirrel-startup": "^1.0.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  }
+	"name": "saberfy",
+	"productName": "Saberfy",
+	"version": "1.0.0",
+	"description": "Tool for match and import your Spotify tracks for BeatSaber",
+	"main": ".webpack/main",
+	"scripts": {
+		"start": "cross-env NODE_ENV=development electron-forge start",
+		"package": "cross-env NODE_ENV=production electron-forge package",
+		"make": "cross-env NODE_ENV=production electron-forge make",
+		"lint": "eslint --ext .ts,.tsx ."
+	},
+	"keywords": [
+		"BeatSaber",
+		"Spotify"
+	],
+	"contributors": [
+		{
+			"name": "E1ON <LoliE1ON>",
+			"url": "https://github.com/LoliE1ON"
+		},
+		{
+			"name": "d0kur0",
+			"email": "dev.dokuro@gmail.com",
+			"url": "https://github.com/d0kur0"
+		}
+	],
+	"license": "MIT",
+	"config": {
+		"forge": {
+			"packagerConfig": {},
+			"makers": [
+				{
+					"name": "@electron-forge/maker-squirrel",
+					"config": {
+						"name": "test"
+					}
+				},
+				{
+					"name": "@electron-forge/maker-zip",
+					"platforms": [
+						"darwin"
+					]
+				},
+				{
+					"name": "@electron-forge/maker-deb",
+					"config": {}
+				},
+				{
+					"name": "@electron-forge/maker-rpm",
+					"config": {}
+				}
+			],
+			"plugins": [
+				[
+					"@electron-forge/plugin-webpack",
+					{
+						"mainConfig": "./webpack.main.config.js",
+						"renderer": {
+							"config": "./webpack.renderer.config.js",
+							"entryPoints": [
+								{
+									"html": "./src/index.html",
+									"js": "./src/renderer.ts",
+									"name": "main_window"
+								}
+							]
+						}
+					}
+				]
+			]
+		}
+	},
+	"devDependencies": {
+		"@electron-forge/cli": "^6.0.0-beta.61",
+		"@electron-forge/maker-deb": "^6.0.0-beta.61",
+		"@electron-forge/maker-rpm": "^6.0.0-beta.61",
+		"@electron-forge/maker-squirrel": "^6.0.0-beta.61",
+		"@electron-forge/maker-zip": "^6.0.0-beta.61",
+		"@electron-forge/plugin-webpack": "6.0.0-beta.61",
+		"@types/react": "^17.0.38",
+		"@types/react-dom": "^17.0.11",
+		"@typescript-eslint/eslint-plugin": "^4.0.1",
+		"@typescript-eslint/parser": "^4.0.1",
+		"@vercel/webpack-asset-relocator-loader": "1.7.0",
+		"css-loader": "^6.0.0",
+		"electron": "16.0.5",
+		"eslint": "^7.6.0",
+		"eslint-import-resolver-typescript": "^2.5.0",
+		"eslint-plugin-import": "^2.25.3",
+		"fork-ts-checker-webpack-plugin": "^6.0.1",
+		"node-loader": "^2.0.0",
+		"prettier": "^2.5.1",
+		"style-loader": "^3.0.0",
+		"ts-loader": "^9.2.2",
+		"typescript": "^4.0.2"
+	},
+	"dependencies": {
+		"@emotion/react": "^11.7.1",
+		"@emotion/styled": "^11.6.0",
+		"@mui/icons-material": "^5.2.5",
+		"@mui/material": "^5.2.5",
+		"cross-env": "^7.0.3",
+		"electron-squirrel-startup": "^1.0.0",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
+	}
 }
