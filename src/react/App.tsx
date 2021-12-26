@@ -4,9 +4,12 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { HashRouter as BrowserRouter, Routes, Route } from "react-router-dom";
+import { ipcRenderer } from "electron";
 
 import TrackList from "pages/TrackList";
 import Navigation from "components/Navigation";
+
+ipcRenderer.send("123");
 
 function App() {
 	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");

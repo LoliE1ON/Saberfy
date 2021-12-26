@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import { registerAppProtocol } from "electron/utils/registerAppProtocol";
 import { setupDevTools } from "electron/utils/setupDevTools";
+import "electron/ipcEvents";
 
 if (require("electron-squirrel-startup")) {
 	// eslint-disable-line global-require
@@ -9,7 +10,7 @@ if (require("electron-squirrel-startup")) {
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
-const isDevelopment = app.isPackaged;
+const isDevelopment = !app.isPackaged;
 const appLock = app.requestSingleInstanceLock();
 
 const WINDOW_WIDTH = 1240;
@@ -27,8 +28,8 @@ const createWindow = (): void => {
 		width: isDevelopment ? WINDOW_WIDTH + DEVTOOLS_WIDTH : WINDOW_WIDTH,
 		webPreferences: {
 			nodeIntegration: true,
+			contextIsolation: false,
 		},
-		titleBarStyle: "hidden",
 	});
 
 	mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY).catch(console.error);
