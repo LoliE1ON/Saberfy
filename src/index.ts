@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import { registerAppProtocol } from "electron/utils/registerAppProtocol";
 import { setupDevTools } from "electron/utils/setupDevTools";
-import "electron/ipcEvents";
+import "electron/ipc";
 
 if (require("electron-squirrel-startup")) {
 	// eslint-disable-line global-require

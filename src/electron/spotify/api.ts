@@ -1,15 +1,15 @@
 import { request, Spotify } from "electron/spotify";
-import { PaginationParameters, TracksResponse, TrackList } from "types/spotify";
+import { TrackListParameters, TracksResponse, TrackList } from "types/spotify";
 
 export const spotifyApi = {
 	async getTracks(
-		paginationParameters: PaginationParameters = {
+		parameters: TrackListParameters = {
 			limit: 50,
 			offset: 0,
 		}
 	): Promise<TrackList> {
 		const response = await request.get<TracksResponse>({
-			url: `me/tracks?market=ES&limit=${paginationParameters.limit}&offset=${paginationParameters.offset}`,
+			url: `me/tracks?market=ES&limit=${parameters.limit}&offset=${parameters.offset}`,
 			headers: {
 				Authorization: `Bearer ${Spotify.accessToken}`,
 			},

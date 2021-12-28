@@ -18,4 +18,5 @@ module.exports = {
 		preferRelative: true,
 		plugins: [new TsconfigPathsPlugin()],
 	},
+	devtool: "source-map",
 };

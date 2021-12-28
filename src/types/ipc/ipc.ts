@@ -1,20 +1,38 @@
-import { IpcTestListener } from "types/ipc/listeners";
-import { IpcTestResponse } from "types/ipc/responses/ipcTestResponse";
+import { TrackList, TrackListParameters } from "types/spotify";
+import { DownloadMapParameters, FindMapsParameters, FindMapsResponse } from "types/beatSaver";
+
+export enum IpcChannel {
+	spotifyGetTracks = "spotifyGetTracks",
+	spotifyOpenAuthLink = "spotifyOpenAuthLink",
+
+	beatSaverFindMaps = "beatSaverFindMaps",
+	beatSaverDownloadMap = "beatSaverDownloadMap",
+
+	beatSaberGetGamePath = "beatSaberGetGamePath",
+	beatSaberGetLocalMaps = "beatSaberGetLocalMaps",
+	beatSaberDeleteMap = "beatSaberDeleteMap",
+}
 
 export type IpcEvent = {
-	[IpcChannel.test]: IpcTestListener;
-	[IpcChannel.a]: void;
-	[IpcChannel.b]: boolean;
+	[IpcChannel.spotifyGetTracks]: TrackListParameters;
+	[IpcChannel.spotifyOpenAuthLink]: void;
+
+	[IpcChannel.beatSaverFindMaps]: FindMapsParameters;
+	[IpcChannel.beatSaverDownloadMap]: DownloadMapParameters;
+
+	[IpcChannel.beatSaberGetGamePath]: void;
+	[IpcChannel.beatSaberGetLocalMaps]: void;
+	[IpcChannel.beatSaberDeleteMap]: string;
 };
 
 export type IpcResponse = {
-	[IpcChannel.test]: IpcTestResponse;
-	[IpcChannel.a]: void;
-	[IpcChannel.b]: boolean;
-};
+	[IpcChannel.spotifyGetTracks]: TrackList;
+	[IpcChannel.spotifyOpenAuthLink]: void;
 
-export enum IpcChannel {
-	test = "test",
-	a = "a",
-	b = "b",
-}
+	[IpcChannel.beatSaverFindMaps]: FindMapsResponse;
+	[IpcChannel.beatSaverDownloadMap]: boolean;
+
+	[IpcChannel.beatSaberGetGamePath]: string;
+	[IpcChannel.beatSaberGetLocalMaps]: string[];
+	[IpcChannel.beatSaberDeleteMap]: boolean;
+};

@@ -6,12 +6,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { HashRouter as BrowserRouter, Routes, Route } from "react-router-dom";
 import TrackList from "pages/TrackList";
 import Navigation from "components/Navigation";
-import { IpcChannel } from "types/ipc";
-import { ipc } from "electron/utils";
-
-ipc.invoke(IpcChannel.test, { name: "test" }).then(result => {
-	console.log(result);
-});
 
 function App() {
 	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -39,4 +33,4 @@ function App() {
 	);
 }
 
-ReactDOM.render(<App />, document.body);
+ReactDOM.render(<App />, document.body.querySelector("#app"));
