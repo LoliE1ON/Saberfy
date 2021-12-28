@@ -2,9 +2,10 @@ import { app, BrowserWindow } from "electron";
 import { registerAppProtocol } from "electron/utils/registerAppProtocol";
 import { setupDevTools } from "electron/utils/setupDevTools";
 import "electron/ipc";
+import { IpcChannel } from "types/ipc";
+require("dotenv").config();
 
 if (require("electron-squirrel-startup")) {
-	// eslint-disable-line global-require
 	app.quit();
 }
 
@@ -13,7 +14,7 @@ declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 const isDevelopment = !app.isPackaged;
 const appLock = app.requestSingleInstanceLock();
 
-const WINDOW_WIDTH = 1240;
+const WINDOW_WIDTH = 1350;
 const WINDOW_HEIGHT = 900;
 const DEVTOOLS_WIDTH = 500;
 
@@ -42,7 +43,7 @@ appLock || app.quit();
 
 if (appLock) {
 	app.on("second-instance", (event, commandLine) => {
-		mainWindow.webContents.send("spotify-auth", commandLine);
+		mainWindow.webContents.send(IpcChannel.spotifyAuth, commandLine);
 
 		if (mainWindow) {
 			if (mainWindow.isMinimized()) mainWindow.restore();

@@ -1,11 +1,14 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { HashRouter as BrowserRouter, Routes, Route } from "react-router-dom";
-import TrackList from "pages/TrackList";
-import Navigation from "components/Navigation";
+import { Provider } from "react-redux";
+import { store } from "store";
+import { Auth } from "pages/Auth";
+import "@fontsource/roboto/400.css";
+import { Tracks } from "pages/Tracks";
 
 function App() {
 	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -21,15 +24,17 @@ function App() {
 	);
 
 	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			<BrowserRouter>
-				<Navigation />
-				<Routes>
-					<Route path="/" element={<TrackList />} />
-				</Routes>
-			</BrowserRouter>
-		</ThemeProvider>
+		<Provider store={store}>
+			<ThemeProvider theme={theme}>
+				<CssBaseline />
+				<BrowserRouter>
+					<Routes>
+						<Route path="/" element={<Auth />} />
+						<Route path="/app" element={<Tracks />} />
+					</Routes>
+				</BrowserRouter>
+			</ThemeProvider>
+		</Provider>
 	);
 }
 

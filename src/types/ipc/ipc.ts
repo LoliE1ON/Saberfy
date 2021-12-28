@@ -2,6 +2,7 @@ import { TrackList, TrackListParameters } from "types/spotify";
 import { DownloadMapParameters, FindMapsParameters, FindMapsResponse } from "types/beatSaver";
 
 export enum IpcChannel {
+	spotifyAuth = "spotifyAuth",
 	spotifyGetTracks = "spotifyGetTracks",
 	spotifyOpenAuthLink = "spotifyOpenAuthLink",
 
@@ -14,18 +15,20 @@ export enum IpcChannel {
 }
 
 export type IpcEvent = {
+	[IpcChannel.spotifyAuth]: boolean;
 	[IpcChannel.spotifyGetTracks]: TrackListParameters;
-	[IpcChannel.spotifyOpenAuthLink]: void;
+	[IpcChannel.spotifyOpenAuthLink]: null;
 
 	[IpcChannel.beatSaverFindMaps]: FindMapsParameters;
 	[IpcChannel.beatSaverDownloadMap]: DownloadMapParameters;
 
-	[IpcChannel.beatSaberGetGamePath]: void;
-	[IpcChannel.beatSaberGetLocalMaps]: void;
+	[IpcChannel.beatSaberGetGamePath]: null;
+	[IpcChannel.beatSaberGetLocalMaps]: null;
 	[IpcChannel.beatSaberDeleteMap]: string;
 };
 
 export type IpcResponse = {
+	[IpcChannel.spotifyAuth]: void;
 	[IpcChannel.spotifyGetTracks]: TrackList;
 	[IpcChannel.spotifyOpenAuthLink]: void;
 
