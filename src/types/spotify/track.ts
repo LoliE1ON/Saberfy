@@ -5,28 +5,31 @@ export type TracksResponse = {
 	offset: number;
 };
 
-type Item = {
+export type Item = {
+	added_at: string;
 	track: Track;
 };
 
 export type TrackList = {
-	list: Track[];
+	list: Item[];
 	total: number;
 };
 
 export type Track = {
 	id: string;
 	name: string;
-	previewUrl: string;
-	preview_url?: string;
-	album?: {
-		images: {
-			url: string;
-		}[];
+	preview_url: string;
+	duration_ms: number;
+	album: {
+		artists: Artist[];
+		images: Image[];
+		name: string;
 	};
-	artists: Artist[];
 };
 
 export type Artist = {
 	name: string;
+};
+export type Image = {
+	url: string;
 };

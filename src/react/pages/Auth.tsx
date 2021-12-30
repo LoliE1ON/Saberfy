@@ -9,6 +9,7 @@ import { RootState } from "store";
 import { IpcChannel } from "types/ipc";
 import { ipc } from "electron/utils";
 import { setSpotifyAuth } from "store/spotify/actions";
+import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 
 export function Auth() {
 	const isAuth = useSelector((state: RootState) => state.spotify.isAuth);
@@ -31,10 +32,12 @@ export function Auth() {
 
 	return (
 		<div>
-			<Container component={"div"} maxWidth="sm" sx={{ marginTop: 45 }}>
+			<Typography variant="h2" component="div" sx={{ marginTop: 10 }} align={"center"}>
+				<QueueMusicIcon fontSize={"large"} /> Saberfy
+			</Typography>
+			<Container component={"div"} maxWidth="sm" sx={{ marginTop: 30 }}>
 				<Typography component={"div"} align={"center"}>
 					<p>
-						{" "}
 						Login to {""}
 						<Typography component={"span"} sx={{ color: "success.main" }} align={"center"}>
 							Spotify

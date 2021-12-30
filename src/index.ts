@@ -1,8 +1,9 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, session } from "electron";
 import { registerAppProtocol } from "electron/utils/registerAppProtocol";
 import { setupDevTools } from "electron/utils/setupDevTools";
 import "electron/ipc";
 import { IpcChannel } from "types/ipc";
+import { Spotify } from "spotify";
 require("dotenv").config();
 
 if (require("electron-squirrel-startup")) {
@@ -33,6 +34,15 @@ const createWindow = (): void => {
 		},
 	});
 
+	mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+		callback({
+			responseHeaders: {
+				...details.responseHeaders,
+				"Content-Security-Policy": ["script-src 'self';image-src 'self'"],
+			},
+		});
+	});
+
 	mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY).catch(console.error);
 	mainWindow.setMenu(null);
 
@@ -43,7 +53,7 @@ appLock || app.quit();
 
 if (appLock) {
 	app.on("second-instance", (event, commandLine) => {
-		mainWindow.webContents.send(IpcChannel.spotifyAuth, commandLine);
+		mainWindow.webContents.send(IpcChannel.spotifyAuth, Spotify.handleAuth(commandLine));
 
 		if (mainWindow) {
 			if (mainWindow.isMinimized()) mainWindow.restore();

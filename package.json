@@ -111,6 +111,7 @@
 		"@mui/icons-material": "^5.2.5",
 		"@mui/material": "^5.2.5",
 		"axios": "^0.24.0",
+		"dayjs": "^1.10.7",
 		"dotenv": "^10.0.0",
 		"electron-squirrel-startup": "^1.0.0",
 		"rage-edit": "^1.2.0",
