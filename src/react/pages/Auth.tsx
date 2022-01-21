@@ -1,26 +1,25 @@
+import { RootState } from "store";
+
 import React from "react";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import { IpcChannel } from "types/ipc";
+
+import { ipc } from "electron/utils";
+
+import { setSpotifyAuth } from "store/spotify/actions";
+
+import QueueMusicIcon from "@mui/icons-material/QueueMusic";
+import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import { Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "store";
-import { IpcChannel } from "types/ipc";
-import { ipc } from "electron/utils";
-import { setSpotifyAuth } from "store/spotify/actions";
-import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 
 export function Auth() {
 	const isAuth = useSelector((state: RootState) => state.spotify.isAuth);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		ipc.on(IpcChannel.spotifyAuth, async (evt, isAuth) => {
-			dispatch(setSpotifyAuth(isAuth));
-		});
-	}, []);
 
 	useEffect(() => {
 		isAuth && navigate("/app");

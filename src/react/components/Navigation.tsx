@@ -15,7 +15,7 @@ export function Navigation() {
 	const [value, setValue] = React.useState(0);
 
 	return (
-		<Paper sx={{ position: "fixed", top: 0, left: 0, right: 0, p: 1, zIndex: 9999 }} elevation={0}>
+		<Paper sx={{ p: 1 }} elevation={0}>
 			<BottomNavigation
 				showLabels
 				value={value}

@@ -1,18 +1,79 @@
-import { store } from "store";
+import { RootState, store } from "store";
+import { ipc } from "utils";
 
 import "@fontsource/roboto/400.css";
+import "App.css";
 
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { HashRouter as BrowserRouter, Route, Routes } from "react-router-dom";
+
+import { IpcChannel } from "types/ipc";
+
+import { setSpotifyAuth } from "store/spotify/actions";
 
 import { Auth } from "pages/Auth";
 import { Tracks } from "pages/Tracks";
 
+import { Navigation } from "components/Navigation";
+
+import CloseIcon from "@mui/icons-material/Close";
+import MinimizeIcon from "@mui/icons-material/Minimize";
+import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
+function Header() {
+	const onClose = () => ipc.invoke(IpcChannel.clientClose, null);
+	const onMinimize = () => ipc.invoke(IpcChannel.clientMinimize, null);
+
+	return (
+		<AppBar position="static" color="primary" enableColorOnDark>
+			<Toolbar
+				sx={{ height: "var(--header-height)", minHeight: "auto", padding: "0 !important" }}
+				variant="dense">
+				<Typography sx={{ p: 1, fontWeight: "600" }} variant="subtitle1" component="div">
+					Saberfy
+				</Typography>
+				<div className="app-header-hack" />
+				<Button sx={{ minWidth: "35px" }} onClick={onMinimize} size="small" color="inherit">
+					<MinimizeIcon />
+				</Button>
+				<Button sx={{ minWidth: "35px" }} onClick={onClose} size="small" color="inherit">
+					<CloseIcon />
+				</Button>
+			</Toolbar>
+		</AppBar>
+	);
+}
+
+function AppWrapper({ children }: { children: React.ReactNode }) {
+	const isAuth = useSelector((state: RootState) => state.spotify.isAuth);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		ipc.invoke(IpcChannel.clientReady, null).catch(console.error);
+		ipc.on(IpcChannel.spotifyAuth, async (evt, isAuth) => {
+			dispatch(setSpotifyAuth(isAuth));
+		});
+	}, []);
+
+	return (
+		<div style={{ height: "100vh" }}>
+			<Header />
+			{isAuth && <Navigation />}
+			{children}
+		</div>
+	);
+}
+
+function AppBody({ children }: { children: React.ReactNode }) {
+	return (
+		<div style={{ height: "calc(100vh - 56px - 16px - var(--header-height))", overflowX: "auto" }}>{children}</div>
+	);
+}
 
 function App() {
 	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -37,12 +98,16 @@ function App() {
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				<BrowserRouter>
-					<Routes>
-						<Route path="/" element={<Auth />} />
-						<Route path="/app" element={<Tracks />} />
-					</Routes>
-				</BrowserRouter>
+				<AppWrapper>
+					<AppBody>
+						<BrowserRouter>
+							<Routes>
+								<Route path="/" element={<Auth />} />
+								<Route path="/app" element={<Tracks />} />
+							</Routes>
+						</BrowserRouter>
+					</AppBody>
+				</AppWrapper>
 			</ThemeProvider>
 		</Provider>
 	);

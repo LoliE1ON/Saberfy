@@ -1,5 +1,7 @@
-import { BrowserWindow, app, session } from "electron";
+import { BrowserWindow, app } from "electron";
+import { Application } from "main/application";
 import { Spotify } from "spotify";
+import { ipc } from "utils";
 
 import { IpcChannel } from "types/ipc";
 
@@ -29,6 +31,7 @@ setupDevTools(app, DEVTOOLS_WIDTH);
 
 const createWindow = (): void => {
 	mainWindow = new BrowserWindow({
+		frame: false,
 		height: WINDOW_HEIGHT,
 		width: isDevelopment ? WINDOW_WIDTH + DEVTOOLS_WIDTH : WINDOW_WIDTH,
 		webPreferences: {
@@ -56,7 +59,8 @@ appLock || app.quit();
 
 if (appLock) {
 	app.on("second-instance", (event, commandLine) => {
-		mainWindow.webContents.send(IpcChannel.spotifyAuth, Spotify.handleAuth(commandLine));
+		Application.isAuth = Spotify.handleAuth(commandLine);
+		mainWindow.webContents.send(IpcChannel.spotifyAuth, Application.isAuth);
 
 		if (mainWindow) {
 			if (mainWindow.isMinimized()) mainWindow.restore();

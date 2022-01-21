@@ -1,5 +1,7 @@
 import { ipc } from "utils";
+
 import { IpcChannel } from "types/ipc";
+
 import { beatSaverApi, downloadMap } from "electron/beatSaver";
 
 ipc.handle(IpcChannel.beatSaverFindMaps, async (event, args) => {

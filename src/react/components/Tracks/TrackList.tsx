@@ -35,6 +35,14 @@ export function TrackList() {
 		isView && setOffset(offset => offset + 50);
 	}, [isView]);
 
+	useEffect(() => {
+		dispatch(setSpotifyIsLoadTracks(true));
+		ipc.invoke(IpcChannel.spotifyGetTracks, { limit: 50, offset }).then(result => {
+			dispatch(setSpotifyTracks(result));
+			dispatch(setSpotifyIsLoadTracks(false));
+		});
+	}, [offset]);
+
 	const [selectedIndex, setSelectedIndex] = React.useState(null);
 
 	const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number) => {
@@ -42,19 +50,10 @@ export function TrackList() {
 		handleOpen();
 	};
 
-	useEffect(() => {
-		if (!isView) return;
-		dispatch(setSpotifyIsLoadTracks(true));
-		ipc.invoke(IpcChannel.spotifyGetTracks, { limit: 50, offset }).then(result => {
-			dispatch(setSpotifyTracks(result));
-			dispatch(setSpotifyIsLoadTracks(false));
-		});
-	}, [dispatch, isView]);
-
 	return (
 		<div>
 			{spotify.tracks.length && (
-				<Paper sx={{ mt: 9 }} elevation={1}>
+				<Paper elevation={1}>
 					{spotify.tracks.map((item, key) => (
 						<ListItemButton
 							key={key}

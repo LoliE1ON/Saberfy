@@ -1,4 +1,5 @@
-import { ipcMain, ipcRenderer, IpcMainEvent, IpcRendererEvent } from "electron";
+import { IpcMainEvent, IpcRendererEvent, ipcMain, ipcRenderer } from "electron";
+
 import { IpcChannel, IpcEvent, IpcResponse } from "types/ipc";
 
 export const ipc: Ipc = {

@@ -1,5 +1,6 @@
-import { request, Spotify } from "electron/spotify";
-import { TrackListParameters, TracksResponse, TrackList } from "types/spotify";
+import { TrackList, TrackListParameters, TracksResponse } from "types/spotify";
+
+import { Spotify, request } from "electron/spotify";
 
 export const spotifyApi = {
 	async getTracks(

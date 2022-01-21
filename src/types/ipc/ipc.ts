@@ -1,7 +1,11 @@
-import { TrackList, TrackListParameters } from "types/spotify";
 import { DownloadMapParameters, FindMapsParameters, FindMapsResponse } from "types/beatSaver";
+import { TrackList, TrackListParameters } from "types/spotify";
 
 export enum IpcChannel {
+	clientReady = "clientReady",
+	clientClose = "clientClose",
+	clientMinimize = "clientMinimize",
+
 	spotifyAuth = "spotifyAuth",
 	spotifyGetTracks = "spotifyGetTracks",
 	spotifyOpenAuthLink = "spotifyOpenAuthLink",
@@ -15,6 +19,10 @@ export enum IpcChannel {
 }
 
 export type IpcEvent = {
+	[IpcChannel.clientReady]: null;
+	[IpcChannel.clientClose]: null;
+	[IpcChannel.clientMinimize]: null;
+
 	[IpcChannel.spotifyAuth]: boolean;
 	[IpcChannel.spotifyGetTracks]: TrackListParameters;
 	[IpcChannel.spotifyOpenAuthLink]: null;
@@ -28,6 +36,10 @@ export type IpcEvent = {
 };
 
 export type IpcResponse = {
+	[IpcChannel.clientReady]: void;
+	[IpcChannel.clientClose]: void;
+	[IpcChannel.clientMinimize]: void;
+
 	[IpcChannel.spotifyAuth]: void;
 	[IpcChannel.spotifyGetTracks]: TrackList;
 	[IpcChannel.spotifyOpenAuthLink]: void;
