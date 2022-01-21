@@ -1,14 +1,18 @@
+import { store } from "store";
+
+import "@fontsource/roboto/400.css";
+
 import React from "react";
 import ReactDOM from "react-dom";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { HashRouter as BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "store";
+import { HashRouter as BrowserRouter, Route, Routes } from "react-router-dom";
+
 import { Auth } from "pages/Auth";
-import "@fontsource/roboto/400.css";
 import { Tracks } from "pages/Tracks";
+
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function App() {
 	const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -17,6 +21,12 @@ function App() {
 		() =>
 			createTheme({
 				palette: {
+					primary: {
+						main: "#1DB954",
+					},
+					secondary: {
+						main: "#039be5",
+					},
 					mode: prefersDarkMode ? "dark" : "light",
 				},
 			}),

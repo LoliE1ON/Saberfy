@@ -26,4 +26,4 @@ export type SetTracksAction = {
 	payload: SetTracksPayload;
 };
 
-export type ConfigActions = SetAuthAction | SetTracksAction | SetIsLoadTracksAction;
+export type SpotifyActions = SetAuthAction | SetTracksAction | SetIsLoadTracksAction;

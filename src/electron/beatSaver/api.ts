@@ -1,5 +1,6 @@
-import { request } from "electron/beatSaver";
 import { FindMapsParameters, FindMapsResponse } from "types/beatSaver";
+
+import { request } from "electron/beatSaver";
 
 export const beatSaverApi = {
 	async findMaps(findMapsParameters: FindMapsParameters): Promise<FindMapsResponse> {

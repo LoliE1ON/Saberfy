@@ -1,12 +1,14 @@
+import { RootState } from "store";
+
 import * as React from "react";
+import { useSelector } from "react-redux";
+
+import QueueMusicIcon from "@mui/icons-material/QueueMusic";
+import SettingsIcon from "@mui/icons-material/Settings";
+import StorageIcon from "@mui/icons-material/Storage";
+import { Badge, Paper } from "@mui/material";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import QueueMusicIcon from "@mui/icons-material/QueueMusic";
-import StorageIcon from "@mui/icons-material/Storage";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { Badge, Paper } from "@mui/material";
-import { useSelector } from "react-redux";
-import { RootState } from "store";
 
 export function Navigation() {
 	const spotifyTotalTracks = useSelector((state: RootState) => state.spotify.total);

@@ -1,9 +1,12 @@
-import { app, BrowserWindow, session } from "electron";
+import { BrowserWindow, app, session } from "electron";
+import { Spotify } from "spotify";
+
+import { IpcChannel } from "types/ipc";
+
+import "electron/ipc";
 import { registerAppProtocol } from "electron/utils/registerAppProtocol";
 import { setupDevTools } from "electron/utils/setupDevTools";
-import "electron/ipc";
-import { IpcChannel } from "types/ipc";
-import { Spotify } from "spotify";
+
 require("dotenv").config();
 
 if (require("electron-squirrel-startup")) {

@@ -7,6 +7,7 @@ export type Doc = {
 	description: string;
 	createdAt: string;
 	stats: Stats;
+	versions: Version[];
 };
 
 export type Stats = {
@@ -15,4 +16,8 @@ export type Stats = {
 	plays: number;
 	score: number;
 	upvotes: number;
+};
+
+export type Version = {
+	coverURL: string;
 };

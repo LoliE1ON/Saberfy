@@ -1,16 +1,23 @@
+import dayjs from "dayjs";
+import { RootState } from "store";
+import { ipc } from "utils";
+
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSpotifyIsLoadTracks, setSpotifyTracks } from "store/spotify/actions";
-import { RootState } from "store";
-import { ipc } from "utils";
+
 import { IpcChannel } from "types/ipc";
+
+import { setSpotifyIsLoadTracks, setSpotifyTracks } from "store/spotify/actions";
+
+import { TrackModal } from "components/Tracks/TrackModal";
+
+import PauseIcon from "@mui/icons-material/Pause";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { Avatar, Box, CircularProgress, ListItemAvatar, Paper } from "@mui/material";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import PauseIcon from "@mui/icons-material/Pause";
-import dayjs from "dayjs";
+
 import { useIntersection } from "hooks/useIntersection";
 
 export function TrackList() {
@@ -20,14 +27,19 @@ export function TrackList() {
 	const ref = useRef(null);
 	const isView = useIntersection(ref.current);
 
+	const [open, setOpen] = React.useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
+
 	useEffect(() => {
 		isView && setOffset(offset => offset + 50);
 	}, [isView]);
 
-	const [selectedIndex, setSelectedIndex] = React.useState(1);
+	const [selectedIndex, setSelectedIndex] = React.useState(null);
 
 	const handleListItemClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number) => {
 		setSelectedIndex(index);
+		handleOpen();
 	};
 
 	useEffect(() => {
@@ -89,6 +101,10 @@ export function TrackList() {
 						</ListItemButton>
 					))}
 				</Paper>
+			)}
+
+			{selectedIndex !== null && (
+				<TrackModal handleClose={handleClose} track={spotify.tracks[selectedIndex]} open={open} />
 			)}
 
 			{spotify.isLoadTracks && (

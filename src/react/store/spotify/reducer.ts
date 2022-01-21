@@ -1,4 +1,4 @@
-import { ConfigActions, SpotifyState } from "store/spotify/types";
+import { SpotifyActions, SpotifyState } from "store/spotify/types";
 import { SET_AUTH, SET_IS_LOAD_TRACKS, SET_TRACKS } from "store/spotify/actions";
 
 const initialState: SpotifyState = {
@@ -8,7 +8,7 @@ const initialState: SpotifyState = {
 	isAuth: false,
 };
 
-export const spotifyReducer = (state = initialState, action: ConfigActions) => {
+export const spotifyReducer = (state = initialState, action: SpotifyActions) => {
 	switch (action.type) {
 		case SET_AUTH: {
 			return {
