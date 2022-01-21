@@ -52,7 +52,7 @@ export function TrackList() {
 
 	return (
 		<div>
-			{spotify.tracks.length && (
+			{spotify.tracks.length ? (
 				<Paper elevation={1}>
 					{spotify.tracks.map((item, key) => (
 						<ListItemButton
@@ -100,13 +100,17 @@ export function TrackList() {
 						</ListItemButton>
 					))}
 				</Paper>
+			) : (
+				<React.Fragment />
 			)}
 
-			{selectedIndex !== null && (
+			{selectedIndex !== null ? (
 				<TrackModal handleClose={handleClose} track={spotify.tracks[selectedIndex]} open={open} />
+			) : (
+				<React.Fragment />
 			)}
 
-			{spotify.isLoadTracks && (
+			{spotify.isLoadTracks ? (
 				<Paper
 					sx={{
 						position: "fixed",
@@ -129,6 +133,8 @@ export function TrackList() {
 						Loading Spotify tracks <CircularProgress sx={{ ml: 3 }} disableShrink />
 					</Box>
 				</Paper>
+			) : (
+				<React.Fragment />
 			)}
 
 			<div style={{ height: 20 }} ref={ref} />
