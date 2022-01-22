@@ -1,0 +1,24 @@
+:root {
+	--header-height: 30px;
+}
+
+::-webkit-scrollbar {
+	height: 12px;
+	width: 10px;
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #1DB954;
+	-webkit-border-radius: 1ex;
+}
+
+::-webkit-scrollbar-corner {
+	background: #000;
+}
+
+.app-header-hack {
+	-webkit-app-region: drag;
+	flex: 1 1 0;
+	height: var(--header-height);
+}

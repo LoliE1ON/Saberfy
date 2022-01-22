@@ -1,100 +1,127 @@
 {
-    "private": true,
-    "name": "saberfy",
-    "productName": "Saberfy",
-    "version": "1.0.0",
-    "description": "",
-    "main": ".dist/mainProcess/src/index.js",
-    "scripts": {
-        "dev": "npm run mp-build && cross-env NODE_ENV=development BROWSER=none npm-run-all --parallel react-start electron-start",
-        "start": "cross-env NODE_ENV=production npm-run-all rp-build mp-build electron-start",
-        "build": "cross-env NODE_ENV=production npm-run-all rp-build mp-build electron-build",
-        "electron-start": "electron .dist/mainProcess/src/index.js",
-        "electron-build": "electron-builder build",
-        "react-lint": "eslint ./src --ext .ts,.js,.tsx",
-        "react-start": "react-app-rewired start",
-        "mp-build": "cd mainProcess && tsc",
-        "rp-build": "react-app-rewired build"
-    },
-    "keywords": [],
-    "build": {
-        "appId": "com.e1on.Saberfy",
-        "files": [
-            ".dist/**/*",
-            "node_modules/**/*",
-            "package.json"
-        ],
-        "directories": {
-            "output": "build"
-        },
-        "publish": null,
-        "extends": null,
-        "protocols": {
-            "name": "spoti-saber-protocol",
-            "schemes": [
-                "spoti-saber"
-            ]
-        }
-    },
-    "license": "MIT",
-    "dependencies": {
-        "@ant-design/icons": "^4.2.2",
-        "antd": "^4.8.0",
-        "axios": "^0.21.0",
-        "dotenv": "^10.0.0",
-        "electron-devtools-installer": "^3.1.0",
-        "electron-reload": "^2.0.0-alpha.1",
-        "electron-squirrel-startup": "^1.0.0",
-        "node-static": "^0.7.11",
-        "npm-run-all": "^4.1.5",
-        "promisify-child-process": "^4.1.1",
-        "rage-edit": "^1.2.0",
-        "react": "^16.13.1",
-        "react-app-rewired": "^2.1.6",
-        "react-dom": "^16.13.1",
-        "react-router-dom": "^5.2.0",
-        "react-scripts": "3.4.1",
-        "regedit": "^5.0.0",
-        "storeon": "^3.1.1",
-        "unzipper": "^0.10.11",
-        "vdf": "^0.0.2"
-    },
-    "devDependencies": {
-        "customize-cra": "^1.0.0",
-        "cross-env": "^7.0.2",
-        "@testing-library/jest-dom": "^4.2.4",
-        "@testing-library/react": "^9.3.2",
-        "@testing-library/user-event": "^7.1.2",
-        "@types/jest": "^24.0.0",
-        "@types/node": "12",
-        "@types/node-static": "^0.7.5",
-        "@types/react": "^16.9.0",
-        "@types/react-dom": "^16.9.0",
-        "@types/react-redux": "^7.1.9",
-        "@types/react-router-dom": "^5.1.6",
-        "@types/testing-library__dom": "^7.5.0",
-        "@types/unzipper": "^0.10.3",
-        "@types/axios": "^0.14.0",
-        "@types/dotenv": "^8.2.0",
-        "@typescript-eslint/eslint-plugin": "^2.18.0",
-        "@typescript-eslint/parser": "^2.18.0",
-        "electron": "^11.0.3",
-        "prettier": "^2.5.1",
-        "typescript": "^4.1.2"
-    },
-    "eslintConfig": {
-        "extends": "react-app"
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    }
+	"name": "saberfy",
+	"productName": "Saberfy",
+	"version": "1.0.0",
+	"description": "Tool for match and import your Spotify tracks for BeatSaber",
+	"main": ".webpack/main",
+	"scripts": {
+		"start": "electron-forge start",
+		"package": "electron-forge package",
+		"make": "NODE_ENV=production electron-forge make",
+		"lint": "eslint --ext .ts,.tsx ."
+	},
+	"keywords": [
+		"BeatSaber",
+		"Spotify"
+	],
+	"contributors": [
+		{
+			"name": "E1ON <LoliE1ON>",
+			"url": "https://github.com/LoliE1ON"
+		},
+		{
+			"name": "d0kur0",
+			"email": "dev.dokuro@gmail.com",
+			"url": "https://github.com/d0kur0"
+		}
+	],
+	"license": "MIT",
+	"config": {
+		"forge": {
+			"packagerConfig": {},
+			"makers": [
+				{
+					"name": "@electron-forge/maker-squirrel",
+					"config": {
+						"name": "test"
+					}
+				},
+				{
+					"name": "@electron-forge/maker-zip",
+					"platforms": [
+						"darwin"
+					]
+				},
+				{
+					"name": "@electron-forge/maker-deb",
+					"config": {}
+				},
+				{
+					"name": "@electron-forge/maker-rpm",
+					"config": {}
+				}
+			],
+			"plugins": [
+				[
+					"@electron-forge/plugin-webpack",
+					{
+						"mainConfig": "./webpack.main.config.js",
+						"renderer": {
+							"config": "./webpack.renderer.config.js",
+							"entryPoints": [
+								{
+									"html": "./src/index.html",
+									"js": "./src/renderer.ts",
+									"name": "main_window"
+								}
+							]
+						}
+					}
+				]
+			]
+		}
+	},
+	"devDependencies": {
+		"@electron-forge/cli": "^6.0.0-beta.61",
+		"@electron-forge/maker-deb": "^6.0.0-beta.61",
+		"@electron-forge/maker-rpm": "^6.0.0-beta.61",
+		"@electron-forge/maker-squirrel": "^6.0.0-beta.61",
+		"@electron-forge/maker-zip": "^6.0.0-beta.61",
+		"@electron-forge/plugin-webpack": "6.0.0-beta.61",
+		"@trivago/prettier-plugin-sort-imports": "^3.1.1",
+		"@types/axios": "^0.14.0",
+		"@types/dotenv": "^8.2.0",
+		"@types/react": "^17.0.38",
+		"@types/react-dom": "^17.0.11",
+		"@types/react-redux": "^7.1.21",
+		"@types/react-router-dom": "^5.3.2",
+		"@types/redux": "^3.6.0",
+		"@types/redux-logger": "^3.0.9",
+		"@types/unzipper": "^0.10.5",
+		"@typescript-eslint/eslint-plugin": "^4.0.1",
+		"@typescript-eslint/parser": "^4.0.1",
+		"@vercel/webpack-asset-relocator-loader": "1.7.0",
+		"css-loader": "^6.0.0",
+		"electron": "16.0.5",
+		"eslint": "^7.6.0",
+		"eslint-import-resolver-typescript": "^2.5.0",
+		"eslint-plugin-import": "^2.25.3",
+		"fork-ts-checker-webpack-plugin": "^6.0.1",
+		"node-loader": "^2.0.0",
+		"prettier": "^2.5.1",
+		"react-router-dom": "^6.2.1",
+		"style-loader": "^3.0.0",
+		"ts-loader": "^9.2.2",
+		"tsconfig-paths-webpack-plugin": "^3.5.2",
+		"typescript": "^4.0.2"
+	},
+	"dependencies": {
+		"@emotion/react": "^11.7.1",
+		"@emotion/styled": "^11.6.0",
+		"@fontsource/roboto": "^4.5.1",
+		"@mui/icons-material": "^5.2.5",
+		"@mui/material": "^5.2.5",
+		"axios": "^0.24.0",
+		"dayjs": "^1.10.7",
+		"dotenv": "^10.0.0",
+		"electron-squirrel-startup": "^1.0.0",
+		"rage-edit": "^1.2.0",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"react-redux": "^7.2.6",
+		"redux": "^4.1.2",
+		"redux-logger": "^3.0.6",
+		"unzipper": "^0.10.11",
+		"vdf": "^0.0.2"
+	}
 }
