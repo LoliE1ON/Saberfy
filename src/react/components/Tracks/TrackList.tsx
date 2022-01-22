@@ -121,7 +121,7 @@ export function TrackList() {
 						zIndex: 9999,
 						textAlign: "center",
 					}}
-					elevation={2}>
+					elevation={0}>
 					<Box
 						sx={{
 							color: "text.disabled",
@@ -137,7 +137,7 @@ export function TrackList() {
 				<React.Fragment />
 			)}
 
-			<div style={{ height: 20 }} ref={ref} />
+			<div style={{ height: 20, background: "transparent" }} ref={ref} />
 		</div>
 	);
 }

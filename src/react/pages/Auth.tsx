@@ -9,8 +9,6 @@ import { IpcChannel } from "types/ipc";
 
 import { ipc } from "electron/utils";
 
-import { setSpotifyAuth } from "store/spotify/actions";
-
 import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -33,6 +31,7 @@ export function Auth() {
 		<div>
 			<Typography variant="h2" component="div" sx={{ marginTop: 10 }} align={"center"}>
 				<QueueMusicIcon fontSize={"large"} /> Saberfy
+				<Typography variant={"subtitle1"}>Import Spotify songs to BeatSaber</Typography>
 			</Typography>
 			<Container component={"div"} maxWidth="sm" sx={{ marginTop: 30 }}>
 				<Typography component={"div"} align={"center"}>

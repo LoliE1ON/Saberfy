@@ -11,9 +11,12 @@ import { HashRouter as BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { IpcChannel } from "types/ipc";
 
-import { setSpotifyAuth } from "store/spotify/actions";
+import { setBeatSaberLocalMaps } from "store/beatSaber/actions";
+import { setSpotifyAuth, setSpotifyIsLoadTracks, setSpotifyTracks } from "store/spotify/actions";
 
 import { Auth } from "pages/Auth";
+import { LocalMaps } from "pages/LocalMaps";
+import { Settings } from "pages/Settings";
 import { Tracks } from "pages/Tracks";
 
 import { Navigation } from "components/Navigation";
@@ -55,8 +58,13 @@ function AppWrapper({ children }: { children: React.ReactNode }) {
 
 	useEffect(() => {
 		ipc.invoke(IpcChannel.clientReady, null).catch(console.error);
+
 		ipc.on(IpcChannel.spotifyAuth, async (evt, isAuth) => {
 			dispatch(setSpotifyAuth(isAuth));
+		});
+
+		ipc.invoke(IpcChannel.beatSaberGetLocalMaps, null).then(result => {
+			dispatch(setBeatSaberLocalMaps(result));
 		});
 	}, []);
 
@@ -70,9 +78,7 @@ function AppWrapper({ children }: { children: React.ReactNode }) {
 }
 
 function AppBody({ children }: { children: React.ReactNode }) {
-	return (
-		<div style={{ height: "calc(100vh - 56px - 16px - var(--header-height))", overflowX: "auto" }}>{children}</div>
-	);
+	return <div style={{ height: "calc(100vh - 56px - var(--header-height))", overflowX: "auto" }}>{children}</div>;
 }
 
 function App() {
@@ -97,17 +103,19 @@ function App() {
 	return (
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				<AppWrapper>
-					<AppBody>
-						<BrowserRouter>
+				<BrowserRouter>
+					<CssBaseline />
+					<AppWrapper>
+						<AppBody>
 							<Routes>
 								<Route path="/" element={<Auth />} />
 								<Route path="/app" element={<Tracks />} />
+								<Route path="/settings" element={<Settings />} />
+								<Route path="/local-maps" element={<LocalMaps />} />
 							</Routes>
-						</BrowserRouter>
-					</AppBody>
-				</AppWrapper>
+						</AppBody>
+					</AppWrapper>
+				</BrowserRouter>
 			</ThemeProvider>
 		</Provider>
 	);

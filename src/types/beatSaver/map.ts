@@ -3,11 +3,13 @@ export type FindMapsResponse = {
 };
 
 export type Doc = {
+	id: string;
 	name: string;
 	description: string;
 	createdAt: string;
 	stats: Stats;
 	versions: Version[];
+	metadata: Metadata;
 };
 
 export type Stats = {
@@ -20,4 +22,14 @@ export type Stats = {
 
 export type Version = {
 	coverURL: string;
+	downloadURL: string;
+};
+
+export type Metadata = {
+	bpm: number;
+	duration: number;
+	levelAuthorName: string;
+	songAuthorName: string;
+	songName: string;
+	songSubName: string;
 };
