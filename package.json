@@ -7,13 +7,14 @@
 	"scripts": {
 		"start": "electron-forge start",
 		"package": "electron-forge package",
-		"make": "NODE_ENV=production electron-forge make",
+		"make": "cross-env NODE_ENV=production electron-forge make",
 		"lint": "eslint --ext .ts,.tsx ."
 	},
 	"keywords": [
 		"BeatSaber",
 		"Spotify"
 	],
+	"author": "Loli E1ON",
 	"contributors": [
 		{
 			"name": "E1ON <LoliE1ON>",
@@ -33,7 +34,7 @@
 				{
 					"name": "@electron-forge/maker-squirrel",
 					"config": {
-						"name": "test"
+						"name": "Saberfy"
 					}
 				},
 				{
@@ -113,6 +114,7 @@
 		"@mui/lab": "^5.0.0-alpha.65",
 		"@mui/material": "^5.2.5",
 		"axios": "^0.24.0",
+		"cross-env": "^7.0.3",
 		"dayjs": "^1.10.7",
 		"dotenv": "^10.0.0",
 		"electron-squirrel-startup": "^1.0.0",
