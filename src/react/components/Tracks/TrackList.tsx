@@ -90,11 +90,6 @@ export function TrackList() {
 									<Box component={"span"} sx={{ color: "text.disabled", fontSize: "small", m: 1 }}>
 										Added {dayjs(item.added_at).format("DD MMMM YYYY")}
 									</Box>
-
-									<Box component={"span"} sx={{ color: "success.main", pt: 0.5 }}>
-										<PlayArrowIcon />
-										<PauseIcon />
-									</Box>
 								</Box>
 							</ListItemText>
 						</ListItemButton>

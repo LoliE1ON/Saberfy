@@ -10,7 +10,7 @@ import { Item } from "types/spotify/track";
 
 import { setBeatSaverMaps } from "store/beatSaver/actions";
 
-import { MapList } from "components/maps/MapList";
+import { MapList } from "components/Maps/MapList";
 
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import { Badge, Box, Dialog, Grid, Paper, Typography } from "@mui/material";

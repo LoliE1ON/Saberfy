@@ -9,12 +9,16 @@ import { IpcChannel } from "types/ipc";
 
 import { addBeatSaberLocalMap, deleteBeatSaberLocalMap } from "store/beatSaber/actions";
 
+import { Preview } from "components/Maps/Preview";
+
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CloseIcon from "@mui/icons-material/Close";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import { Avatar, Box, Button, ButtonGroup, Divider, Grid, Paper, Rating, Tooltip } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { Avatar, Box, Button, ButtonGroup, Dialog, Divider, Paper, Rating, Tooltip } from "@mui/material";
 
 export type MapProps = {
 	map: Doc;
@@ -22,13 +26,18 @@ export type MapProps = {
 
 export function Map({ map }: MapProps) {
 	const localMaps = useSelector((state: RootState) => state.beatSaber.localMaps);
+	const [open, setOpen] = React.useState(false);
+	const [isImporting, setIsImporting] = React.useState(false);
 	const dispatch = useDispatch();
 
 	const importMap = (url: string, folderName: string) => {
+		setIsImporting(true);
 		ipc.invoke(IpcChannel.beatSaverDownloadMap, { url, folderName }).then(isSuccess => {
 			if (isSuccess) {
 				dispatch(addBeatSaberLocalMap(folderName));
 			}
+
+			setIsImporting(false);
 		});
 	};
 
@@ -57,14 +66,23 @@ export function Map({ map }: MapProps) {
 		} else {
 			return (
 				<Tooltip title="Import to BeatSaber">
-					<Button onClick={() => importMap(map.versions[0].downloadURL, mapName)}>
+					<LoadingButton
+						loading={isImporting}
+						onClick={() => importMap(map.versions[0].downloadURL, mapName)}>
 						<SaveAltIcon />
-					</Button>
+					</LoadingButton>
 				</Tooltip>
 			);
 		}
 	};
-	console.log(map.stats.score);
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
 	return (
 		<React.Fragment>
 			<Paper sx={{ display: "flex", p: 2, gap: 2, borderRadius: 0 }} elevation={1}>
@@ -77,7 +95,14 @@ export function Map({ map }: MapProps) {
 					/>
 				</Box>
 				<Box sx={{ flexGrow: 1 }}>
-					{map.name}
+					<Box sx={{ display: "flex" }}>
+						<Box sx={{ flexGrow: 1 }}>{map.name}</Box>
+						<Box sx={{ display: "flex" }}>
+							<AccessTimeIcon sx={{ mr: 1 }} fontSize="small" />
+							{Math.floor((map.metadata.duration / 60) << 0)}:{Math.floor(map.metadata.duration % 60)}
+						</Box>
+					</Box>
+
 					<Box
 						component={"div"}
 						sx={{
@@ -96,12 +121,16 @@ export function Map({ map }: MapProps) {
 				<ButtonGroup orientation="vertical" size={"small"}>
 					<ImportButton />
 					<Tooltip title="Preview map">
-						<Button>
+						<Button variant="text" onClick={handleClickOpen}>
 							<PlayArrowIcon />
 						</Button>
 					</Tooltip>
 				</ButtonGroup>
 			</Paper>
+
+			<Dialog fullWidth={true} maxWidth={"lg"} open={open} onClose={handleClose}>
+				<Preview id={map.id} />
+			</Dialog>
 
 			<Divider />
 		</React.Fragment>

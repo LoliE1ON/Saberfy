@@ -44,7 +44,7 @@ const createWindow = (): void => {
 		callback({
 			responseHeaders: {
 				...details.responseHeaders,
-				"Content-Security-Policy": ["script-src 'self';image-src 'self'"],
+				"Content-Security-Policy": ["script-src *;image-src *"],
 			},
 		});
 	});

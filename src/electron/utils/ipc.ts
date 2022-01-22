@@ -10,7 +10,6 @@ export const ipc: Ipc = {
 		return ipcRenderer.invoke(channel, args);
 	},
 	on(channel, callback) {
-		console.log(channel, callback);
 		ipcRenderer.on(channel, callback);
 	},
 };

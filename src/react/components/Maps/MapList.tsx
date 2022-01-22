@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { Doc } from "types/beatSaver";
 
-import { Map } from "components/maps/Map";
+import { Map } from "components/Maps/Map";
 
 import { Divider, Paper } from "@mui/material";
 
