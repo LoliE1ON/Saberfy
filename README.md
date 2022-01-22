@@ -11,7 +11,7 @@ NodeJS >= 16
 
 ## Install
 
-Repository Cloning
+Clone repository
 
 ```bash
 git clone git@github.com:LoliE1ON/Saberfy.git
