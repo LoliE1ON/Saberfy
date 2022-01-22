@@ -31,6 +31,7 @@ npm i
 
 ## Setup
 - Create Spotify application in the Dashboard: https://developer.spotify.com/dashboard/applications
+- Clone ```.env.example``` file as ```.env``
 - Set application client id: ```SPOTIFY_CLIENT_ID``` in the ```.env``` file.
 - Start application: ```npm start```
 
