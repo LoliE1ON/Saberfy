@@ -30,7 +30,8 @@ npm i
 ```
 
 ## Setup
-- Set Spotify client id: ```SPOTIFY_CLIENT_ID``` in the ```.env``` file. (https://developer.spotify.com/dashboard/applications) 
+- Set Spotify client id: ```SPOTIFY_CLIENT_ID``` in the ```.env``` file.
+  - https://developer.spotify.com/dashboard/applications
 - Start application: ```npm start```
 
 ## Build
