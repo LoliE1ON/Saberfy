@@ -1,6 +1,6 @@
 # Saberfy (WIP)
 
-Tool for match and import your Spotify tracks with BeatSaver and BeatSaber.
+Application for match and import your Spotify tracks with BeatSaver and BeatSaber.
 
 This tool provide user-friendly interface for import and preview maps.
 
@@ -9,6 +9,6 @@ This tool provide user-friendly interface for import and preview maps.
 # Usage
 Clone ```.env.example``` as ```.env```
 
-Set ```SPOTIFY_CLIENT_ID``` in ```.env```
+Set app id ```SPOTIFY_CLIENT_ID``` in ```.env``` (https://developer.spotify.com/dashboard/applications) 
 
 Run app ```npm run dev```
