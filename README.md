@@ -9,4 +9,6 @@ This tool provide user-friendly interface for import and preview maps.
 # Setup
 - Clone ```.env.example``` as ```.env```
 - Set Spotify client id ```SPOTIFY_CLIENT_ID``` in ```.env``` (https://developer.spotify.com/dashboard/applications) 
-- Run app ```npm run dev```
+- Install dependencies ```npm i```
+- Run app ```npm start``` or build ```npm run package```.
+- HF
