@@ -1,7 +1,7 @@
 {
 	"name": "saberfy",
 	"productName": "Saberfy",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "Tool for match and import your Spotify tracks for BeatSaber",
 	"main": ".webpack/main",
 	"scripts": {
