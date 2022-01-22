@@ -29,11 +29,11 @@ Install all dependencies
 npm i
 ```
 
-# Setup
+## Setup
 - Set Spotify client id: ```SPOTIFY_CLIENT_ID``` in ```.env``` (https://developer.spotify.com/dashboard/applications) 
 - Start application: ```npm start```
 
-# Build
+## Build
 - Standalone build: ```npm run package```
 - Installer:  ```npm run make```
 
