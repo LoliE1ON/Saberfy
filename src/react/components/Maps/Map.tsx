@@ -9,6 +9,8 @@ import { IpcChannel } from "types/ipc";
 
 import { addBeatSaberLocalMap, deleteBeatSaberLocalMap } from "store/beatSaber/actions";
 
+import { validateFolderName } from "utils/validateFolderName";
+
 import { Preview } from "components/Maps/Preview";
 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -50,7 +52,7 @@ export function Map({ map }: MapProps) {
 	};
 
 	const ImportButton = () => {
-		const mapName = `${map.id} (${map.metadata.songName} - ${map.metadata.levelAuthorName})`;
+		const mapName = validateFolderName(`${map.id} (${map.metadata.songName} - ${map.metadata.levelAuthorName})`);
 		const localMap = localMaps.find(map => {
 			return map === mapName;
 		});
