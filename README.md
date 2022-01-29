@@ -2,9 +2,12 @@
 
 Application for match and import your Spotify tracks with BeatSaver and BeatSaber.
 
-This tool provide user-friendly interface for import and preview maps.
+![Saberfy preview](https://e1on.space/saberfy_v2.1.png)
 
-![Saberfy preview](https://e1on.space/saberfy_v2.png)
+### Features
+- Find maps by song or artist
+- Map sorting
+- Map preview
 
 ## Dependencies
 NodeJS >= 16
