@@ -1,11 +1,12 @@
 # Saberfy (WIP)
 
-Application for match and import your Spotify tracks with BeatSaver and BeatSaber.
+Application for match and import your Spotify tracks to BeatSaber.
 
 ![Saberfy preview](https://e1on.space/saberfy_v2.1.png)
 
 ### Features
-- Find maps by song or artist
+- Find maps by song or artist from BeatSaver
+- Import map to BeatSaber
 - Map sorting
 - Map preview
 
