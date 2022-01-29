@@ -15,10 +15,9 @@ export function MapList({ maps }: MapListProps) {
 		<div>
 			<div style={{ width: "100%" }}>
 				{maps.length ? (
-					maps.sort((a, b) => b.stats.score - a.stats.score).map((item, key) => <Map map={item} key={key} />)
+					maps.map((item, key) => <Map map={item} key={key} />)
 				) : (
 					<div>
-						<Divider />
 						<Paper sx={{ p: 2 }} elevation={0}>
 							Maps not found
 						</Paper>
