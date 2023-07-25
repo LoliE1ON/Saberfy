@@ -2,7 +2,7 @@
 
 Application for match and import your Spotify favorite songs to BeatSaber.
 
-![Saberfy preview](https://e1on.space/saberfy_v2.1.png)
+![Saberfy preview](https://files.e1on.space/proggrams/saberfy.png)
 
 ### Features
 - Find maps by song or artist from BeatSaver
