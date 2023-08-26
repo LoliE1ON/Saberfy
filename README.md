@@ -1,6 +1,6 @@
 # Saberfy (WIP)
 
-Application for match and import your Spotify favorite songs to BeatSaber.
+Application to search and import your favorite tracks from Spotify to BeatSaber.
 
 ![Saberfy preview](https://files.e1on.space/proggrams/saberfy.png)
 
