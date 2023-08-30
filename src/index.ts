@@ -1,13 +1,11 @@
 import { BrowserWindow, app } from "electron";
 import { Application } from "main/application";
 import { Spotify } from "spotify";
-import { ipc } from "utils";
 
 import { IpcChannel } from "types/ipc";
 
 import "electron/ipc";
 import { registerAppProtocol } from "electron/utils/registerAppProtocol";
-import { setupDevTools } from "electron/utils/setupDevTools";
 
 require("dotenv").config();
 
@@ -27,7 +25,6 @@ const DEVTOOLS_WIDTH = 500;
 let mainWindow: BrowserWindow = null;
 
 registerAppProtocol(app);
-//(app, DEVTOOLS_WIDTH);
 
 const createWindow = (): void => {
 	mainWindow = new BrowserWindow({

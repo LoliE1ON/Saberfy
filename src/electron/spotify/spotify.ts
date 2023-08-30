@@ -1,10 +1,12 @@
+import { spotifyConfig } from "config/spotify";
+
 export class Spotify {
 	public static accessToken: string = null;
 
 	public static getAuthUrl(): string {
 		const parameters = {
 			response_type: "token",
-			client_id: process.env.SPOTIFY_CLIENT_ID,
+			client_id: spotifyConfig.clientId,
 			scope: "user-library-read",
 			state: "",
 			redirect_uri: "saberfy://auth/",

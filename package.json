@@ -2,7 +2,7 @@
 	"name": "saberfy",
 	"productName": "Saberfy",
 	"version": "2.0.0",
-	"description": "Tool for match and import your Spotify tracks for BeatSaber",
+	"description": "Application to search and import your favorite tracks from Spotify to BeatSaber",
 	"main": ".webpack/main",
 	"scripts": {
 		"start": "electron-forge start",
