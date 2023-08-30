@@ -27,7 +27,7 @@ const DEVTOOLS_WIDTH = 500;
 let mainWindow: BrowserWindow = null;
 
 registerAppProtocol(app);
-setupDevTools(app, DEVTOOLS_WIDTH);
+//(app, DEVTOOLS_WIDTH);
 
 const createWindow = (): void => {
 	mainWindow = new BrowserWindow({
