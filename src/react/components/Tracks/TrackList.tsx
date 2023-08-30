@@ -32,6 +32,14 @@ export function TrackList() {
 	const handleClose = () => setOpen(false);
 
 	useEffect(() => {
+		dispatch(setSpotifyIsLoadTracks(true));
+		ipc.invoke(IpcChannel.spotifyGetTracks, { limit: 50, offset }).then(result => {
+			dispatch(setSpotifyTracks(result));
+			dispatch(setSpotifyIsLoadTracks(false));
+		});
+	}, []);
+
+	useEffect(() => {
 		isView && setOffset(offset => offset + 50);
 	}, [isView]);
 
