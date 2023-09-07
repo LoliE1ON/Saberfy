@@ -49,6 +49,8 @@ export function TrackList() {
 			dispatch(setSpotifyTracks(result));
 			dispatch(setSpotifyIsLoadTracks(false));
 		});
+
+		console.log(offset)
 	}, [offset]);
 
 	const [selectedIndex, setSelectedIndex] = React.useState(null);

@@ -1,4 +1,6 @@
 export enum TrackSortBy {
-	rating = "rating",
-	like = "like",
+	relevance = "Relevance",
+	latest = "Latest",
+	rating = "Rating",
+	curated = "Curated",
 }
