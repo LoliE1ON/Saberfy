@@ -12,7 +12,7 @@ import { HashRouter as BrowserRouter, Route, Routes } from "react-router-dom";
 import { IpcChannel } from "types/ipc";
 
 import { setBeatSaberLocalMaps } from "store/beatSaber/actions";
-import { setSpotifyAuth, setSpotifyIsLoadTracks, setSpotifyTracks } from "store/spotify/actions";
+import { setSpotifyAuth } from "store/spotify/actions";
 
 import { Auth } from "pages/Auth";
 import { LocalMaps } from "pages/LocalMaps";
@@ -27,6 +27,7 @@ import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import {Search} from "pages/Search";
 
 function Header() {
 	const onClose = () => ipc.invoke(IpcChannel.clientClose, null);
@@ -110,6 +111,7 @@ function App() {
 							<Routes>
 								<Route path="/" element={<Auth />} />
 								<Route path="/app" element={<Tracks />} />
+								<Route path="/search" element={<Search />} />
 								<Route path="/settings" element={<Settings />} />
 								<Route path="/local-maps" element={<LocalMaps />} />
 							</Routes>

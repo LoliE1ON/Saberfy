@@ -10,6 +10,7 @@ import StorageIcon from "@mui/icons-material/Storage";
 import { Badge, Paper } from "@mui/material";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import SearchIcon from '@mui/icons-material/Search';
 
 const bottomStyles = {
 	paddingTop: "12px!important",
@@ -39,6 +40,12 @@ export function Navigation() {
 							<QueueMusicIcon />
 						</Badge>
 					}
+				/>
+				<BottomNavigationAction
+					onClick={() => navigate("/search")}
+					sx={bottomStyles}
+					label="Search"
+					icon={<SearchIcon />}
 				/>
 				<BottomNavigationAction
 					onClick={() => navigate("/local-maps")}
