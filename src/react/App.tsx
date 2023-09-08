@@ -72,7 +72,7 @@ function AppWrapper({ children }: { children: React.ReactNode }) {
 	return (
 		<div style={{ height: "100vh" }}>
 			<Header />
-			{isAuth && <Navigation />}
+			<Navigation />
 			{children}
 		</div>
 	);
@@ -119,6 +119,7 @@ function App() {
 					</AppWrapper>
 				</BrowserRouter>
 			</ThemeProvider>
+
 		</Provider>
 	);
 }

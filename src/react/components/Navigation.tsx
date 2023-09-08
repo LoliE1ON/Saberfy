@@ -32,7 +32,7 @@ export function Navigation() {
 					setValue(newValue);
 				}}>
 				<BottomNavigationAction
-					label="Spotify tracks"
+					label="Spotify"
 					sx={bottomStyles}
 					onClick={() => navigate("/")}
 					icon={
@@ -44,13 +44,13 @@ export function Navigation() {
 				<BottomNavigationAction
 					onClick={() => navigate("/search")}
 					sx={bottomStyles}
-					label="Search"
+					label="BeatSaver"
 					icon={<SearchIcon />}
 				/>
 				<BottomNavigationAction
 					onClick={() => navigate("/local-maps")}
 					sx={bottomStyles}
-					label="Local maps"
+					label="Library"
 					icon={
 						<Badge badgeContent={beatSaberTotalMaps} max={99999}>
 							<StorageIcon />
