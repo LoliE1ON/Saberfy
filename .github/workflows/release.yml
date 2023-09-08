@@ -1,0 +1,30 @@
+name: Release
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    release:
+        runs-on: windows-latest
+        env:
+            TOKEN: ${{ secrets.TOKEN }}
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  cache: 'npm'
+                  cache-dependency-path: package-lock.json
+            - run: npm i --force
+            - run: npm run make
+            - uses: nyaa8/package-version@v1
+            - uses: svenstaro/upload-release-action@v2
+              with:
+                  repo_token: ${{ secrets.TOKEN }}
+                  file: "./out/make/squirrel.windows/x64/Saberfy-${{ env.PACKAGE_VERSION }} Setup.exe"
+                  asset_name: "Saberfy_v${{ env.PACKAGE_VERSION }}.exe"
+                  release_name: "Release v${{ env.PACKAGE_VERSION }}"
+                  tag: "v${{ env.PACKAGE_VERSION }}"
+                  overwrite: true

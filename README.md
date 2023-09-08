@@ -1,12 +1,13 @@
 # Saberfy (WIP)
 
-Application to search and import your favorite tracks from Spotify to BeatSaber.
+Application to search and import tracks from BeatSaver to BeatSaber.
 
 ![Saberfy preview](https://files.e1on.space/proggrams/saberfy.png)
 
 ### Features
+- Find Spotify favorite tracks in BeatSaver
 - Find maps by song or artist from BeatSaver
-- Import map to BeatSaber
+- Import maps to BeatSaber
 - Map sorting
 - Map preview
 
